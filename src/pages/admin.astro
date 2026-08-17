@@ -1,8 +1,8 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import DashboardLayout from '../layouts/DashboardLayout.astro';
 ---
 
-<Layout title="Admin Dashboard | Bhavya Career Institute">
+<DashboardLayout title="Admin Dashboard | Bhavya Career Institute">
   <div class="admin-container container fade-up">
     <!-- Password Overlay -->
     <div id="password-overlay" class="password-overlay hidden">
@@ -106,7 +106,7 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
   </div>
-</Layout>
+</DashboardLayout>
 
 <script>
   import { auth, db } from '../lib/firebase.js';
