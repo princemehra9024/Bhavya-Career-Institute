@@ -835,6 +835,7 @@ import logInImg from '../assets/Log_In-removebg-preview.png';
   /* Responsive */
   @media (max-width: 1024px) {
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .action-section { grid-template-columns: 1fr; }
   }
   @media (max-width: 768px) {
     .sidebar { display: none; } /* Could add a hamburger menu to header */
@@ -844,5 +845,8 @@ import logInImg from '../assets/Log_In-removebg-preview.png';
     .list-item-card { flex-direction: column; align-items: flex-start; gap: 1rem; }
     .list-item-right { width: 100%; justify-content: space-between; }
     .records-expand { max-width: 100%; justify-content: flex-start; }
+    .action-section { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .main-content { padding: 1.5rem 1rem; width: 100vw; }
   }
 </style>

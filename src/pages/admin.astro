@@ -249,15 +249,20 @@ import Layout from '../layouts/Layout.astro';
       document.getElementById('stat-total')!.textContent = String(count);
       document.getElementById('stat-courses')!.textContent = String(courses.size);
       
+    } catch (error: any) {
+      listEl.innerHTML = `<li class="empty-msg">Error loading students: ${error.message}</li>`;
+      console.error('Error loading students:', error);
+    }
+
+    try {
       // Load today's attendance count
       const today = new Date().toISOString().split('T')[0];
       const attQ = query(collection(db, 'attendance'), where('date', '==', today), where('status', '==', 'present'));
       const attSnap = await getDocs(attQ);
       document.getElementById('stat-today')!.textContent = String(attSnap.size);
-      
-    } catch (error) {
-      listEl.innerHTML = '<li class="empty-msg">Error loading students.</li>';
-      console.error(error);
+    } catch (error: any) {
+      console.error('Error loading today attendance count:', error);
+      document.getElementById('stat-today')!.textContent = 'Err';
     }
   }
 
@@ -337,9 +342,9 @@ import Layout from '../layouts/Layout.astro';
           });
         });
       }
-    } catch (error) {
-      listEl.innerHTML = '<li class="empty-msg">Error loading students.</li>';
-      console.error(error);
+    } catch (error: any) {
+      listEl.innerHTML = `<li class="empty-msg">Error loading students: ${error.message}</li>`;
+      console.error('Error in mark attendance load:', error);
     }
   });
 
@@ -385,7 +390,7 @@ import Layout from '../layouts/Layout.astro';
   });
 </script>
 
-<style>
+<style is:global>
   .admin-container {
     padding: 2rem;
     min-height: 80vh;
