@@ -1,0 +1,566 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Student Dashboard Demo | Bhavya Career Institute">
+  <div class="demo-banner">
+    🎓 DEMO MODE — Student View &nbsp;|&nbsp; <a href="/demo-admin">Switch to Admin Demo →</a>
+  </div>
+
+  <div class="dashboard-wrapper">
+    <div class="dashboard-container container">
+      <!-- Header -->
+      <div class="dash-header">
+        <div class="dash-header-left">
+          <p class="greeting">Good evening 👋</p>
+          <h1>Welcome, <span class="name-gradient">Rahul Sharma</span></h1>
+          <p class="dash-subtitle">Thursday, August 14, 2026</p>
+        </div>
+        <div class="dash-header-right">
+          <div class="avatar-ring">
+            <span>RS</span>
+          </div>
+          <button class="btn btn-outline btn-sm">Log Out</button>
+        </div>
+      </div>
+
+      <!-- Course Info Banner -->
+      <div class="course-banner">
+        <div class="course-banner-left">
+          <span class="course-icon">🎓</span>
+          <div>
+            <p class="course-label">Enrolled Course</p>
+            <h3>RSCIT</h3>
+          </div>
+        </div>
+        <div class="course-badge">Active</div>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <!-- Attendance Ring -->
+        <div class="stat-card ring-card">
+          <div class="ring-container">
+            <svg viewBox="0 0 100 100" class="progress-ring">
+              <circle cx="50" cy="50" r="42" class="ring-bg" />
+              <!-- stroke-dashoffset = 263.89 - (86/100)*263.89 = 36.9 -->
+              <circle cx="50" cy="50" r="42" class="ring-progress" style="stroke-dashoffset: 36.9;" />
+            </svg>
+            <div class="ring-text">
+              <span class="ring-value">86%</span>
+              <span class="ring-label">Attendance</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Days Present -->
+        <div class="stat-card">
+          <div class="stat-icon-wrap green">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <span class="stat-value">18</span>
+          <span class="stat-label">Days Present</span>
+        </div>
+
+        <!-- Days Absent -->
+        <div class="stat-card">
+          <div class="stat-icon-wrap red">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          </div>
+          <span class="stat-value">3</span>
+          <span class="stat-label">Days Absent</span>
+        </div>
+
+        <!-- Total Classes -->
+        <div class="stat-card">
+          <div class="stat-icon-wrap blue">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <span class="stat-value">21</span>
+          <span class="stat-label">Total Classes</span>
+        </div>
+      </div>
+
+      <!-- Submit Attendance Section -->
+      <div class="submit-attendance-card">
+        <div class="submit-left">
+          <div class="submit-icon">📋</div>
+          <div>
+            <h3>Today's Attendance</h3>
+            <p>Mark yourself present for today's class</p>
+          </div>
+        </div>
+        <button class="btn submit-btn" onclick="this.innerHTML='✓ Submitted Successfully!'; this.classList.add('submitted'); this.disabled=true;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Submit Present
+        </button>
+      </div>
+
+      <!-- Recent Attendance -->
+      <div class="attendance-section">
+        <div class="section-header-row">
+          <h2>Recent Attendance</h2>
+          <span class="month-chip">August 2026</span>
+        </div>
+        <div class="attendance-list-card">
+          <ul class="att-list">
+            <li class="att-item">
+              <div class="att-left">
+                <div class="att-day-num">14</div>
+                <div class="att-day-info">
+                  <strong>Thu</strong>
+                  <span>Aug 14, 2026</span>
+                </div>
+              </div>
+              <span class="att-badge badge-present">✓ PRESENT</span>
+            </li>
+            <li class="att-item">
+              <div class="att-left">
+                <div class="att-day-num">13</div>
+                <div class="att-day-info">
+                  <strong>Wed</strong>
+                  <span>Aug 13, 2026</span>
+                </div>
+              </div>
+              <span class="att-badge badge-present">✓ PRESENT</span>
+            </li>
+            <li class="att-item">
+              <div class="att-left">
+                <div class="att-day-num">12</div>
+                <div class="att-day-info">
+                  <strong>Tue</strong>
+                  <span>Aug 12, 2026</span>
+                </div>
+              </div>
+              <span class="att-badge badge-absent">✗ ABSENT</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .demo-banner {
+    background: linear-gradient(90deg, #2B2B2B, #4A5568);
+    color: white;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .demo-banner a {
+    color: var(--color-secondary);
+    font-weight: 700;
+  }
+
+  .dashboard-wrapper {
+    min-height: 100vh;
+    padding-bottom: 2rem;
+  }
+
+  .dashboard-container {
+    padding: 2rem;
+    max-width: 960px;
+  }
+
+  /* Header */
+  .dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--color-white);
+    padding: 2rem 2.5rem;
+    border-radius: 24px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .dash-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-secondary), #4A5568, var(--color-secondary));
+  }
+  .greeting {
+    font-size: 0.9rem;
+    color: rgba(43,43,43,0.6);
+    margin-bottom: 0.3rem;
+  }
+  .dash-header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
+  }
+  .name-gradient {
+    background: linear-gradient(135deg, #2B2B2B, var(--color-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .dash-subtitle {
+    font-size: 0.9rem;
+    color: rgba(43,43,43,0.55);
+  }
+  .dash-header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .avatar-ring {
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(135deg, var(--color-secondary), #4A5568);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 12px rgba(183, 198, 217, 0.4);
+  }
+  .btn-sm {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.85rem;
+  }
+
+  /* Course Banner */
+  .course-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #2B2B2B 0%, #3d4654 100%);
+    color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 24px rgba(43,43,43,0.15);
+    transition: transform 0.3s ease;
+  }
+  .course-banner:hover { transform: translateY(-2px); }
+  .course-banner-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .course-icon {
+    font-size: 2rem;
+    background: rgba(255,255,255,0.15);
+    padding: 0.6rem;
+    border-radius: 14px;
+  }
+  .course-label {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.2rem;
+  }
+  .course-banner h3 {
+    font-size: 1.3rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+  }
+  .course-badge {
+    background: rgba(76, 175, 80, 0.2);
+    color: #81c784;
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+  }
+
+  /* Stats Grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr 1fr;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .stat-card {
+    background: var(--color-white);
+    padding: 1.5rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  }
+  .stat-icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.3rem;
+  }
+  .stat-icon-wrap.green { background: #e8f5e9; color: #2e7d32; }
+  .stat-icon-wrap.red { background: #ffebee; color: #c62828; }
+  .stat-icon-wrap.blue { background: #e3f2fd; color: #1565c0; }
+  .stat-value {
+    font-size: 2.2rem;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    color: var(--color-text);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    color: rgba(43,43,43,0.55);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+  }
+
+  /* Progress Ring */
+  .ring-card {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ring-container {
+    position: relative;
+    width: 130px;
+    height: 130px;
+  }
+  .progress-ring {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+  .ring-bg {
+    fill: none;
+    stroke: var(--color-light-bg);
+    stroke-width: 8;
+  }
+  .ring-progress {
+    fill: none;
+    stroke: var(--color-secondary);
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 263.89;
+    stroke-dashoffset: 263.89;
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .ring-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .ring-value {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    color: var(--color-text);
+    line-height: 1;
+  }
+  .ring-label {
+    display: block;
+    font-size: 0.7rem;
+    color: rgba(43,43,43,0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 0.2rem;
+  }
+
+  /* Submit Attendance */
+  .submit-attendance-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--color-white);
+    padding: 1.5rem 2rem;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    border-left: 4px solid var(--color-secondary);
+    transition: transform 0.3s ease;
+  }
+  .submit-attendance-card:hover { transform: translateY(-2px); }
+  .submit-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .submit-icon {
+    font-size: 1.8rem;
+    background: var(--color-light-bg);
+    padding: 0.6rem;
+    border-radius: 12px;
+  }
+  .submit-left h3 {
+    font-size: 1.1rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+  .submit-left p {
+    font-size: 0.85rem;
+    color: rgba(43,43,43,0.6);
+  }
+  .submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #4CAF50;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+  .submit-btn:hover {
+    background: #43A047;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+  }
+  .submit-btn:disabled {
+    cursor: not-allowed;
+    transform: none;
+  }
+  .submit-btn.submitted {
+    background: #e8f5e9;
+    color: #2e7d32;
+    box-shadow: none;
+  }
+
+  /* Attendance Section */
+  .attendance-section {
+    margin-top: 0.5rem;
+  }
+  .section-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  .section-header-row h2 {
+    font-size: 1.5rem;
+  }
+  .month-chip {
+    background: var(--color-white);
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(43,43,43,0.7);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .attendance-list-card {
+    background: var(--color-white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+  .att-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .att-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem 2rem;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+    transition: background 0.2s ease;
+  }
+  .att-item:last-child { border-bottom: none; }
+  .att-item:hover { background: var(--color-light-bg); }
+  .att-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .att-day-num {
+    width: 42px;
+    height: 42px;
+    background: var(--color-light-bg);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--color-text);
+  }
+  .att-day-info strong {
+    display: block;
+    font-size: 0.95rem;
+    margin-bottom: 0.1rem;
+  }
+  .att-day-info span {
+    font-size: 0.8rem;
+    color: rgba(43,43,43,0.55);
+  }
+  .att-badge {
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .badge-present {
+    background: #e8f5e9;
+    color: #2e7d32;
+  }
+  .badge-absent {
+    background: #ffebee;
+    color: #c62828;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .dashboard-container { padding: 1rem; }
+    .dash-header {
+      flex-direction: column;
+      text-align: center;
+      gap: 1.5rem;
+      padding: 1.5rem;
+    }
+    .dash-header-right { justify-content: center; }
+    .dash-header h1 { font-size: 1.4rem; }
+    .stats-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .ring-card {
+      grid-column: span 2;
+    }
+    .course-banner {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+    .course-banner-left {
+      flex-direction: column;
+    }
+    .submit-attendance-card {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+    .submit-left {
+      flex-direction: column;
+    }
+    .att-item { padding: 1rem 1.2rem; }
+  }
+</style>

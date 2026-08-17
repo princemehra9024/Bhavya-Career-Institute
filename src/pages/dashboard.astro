@@ -1,0 +1,848 @@
+---
+import DashboardLayout from '../layouts/DashboardLayout.astro';
+import { Image } from 'astro:assets';
+import logInImg from '../assets/Log_In-removebg-preview.png';
+---
+
+<DashboardLayout title="Student Dashboard | Bhavya Career Institute">
+  <!-- Loading Overlay -->
+  <div id="loading" class="loading-overlay">
+    <div class="loader-spinner"></div>
+    <p>Loading your dashboard…</p>
+  </div>
+
+  <div id="dashboard-main" class="dashboard-app hidden">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <span class="logo-icon">🎓</span>
+        <span class="logo-text">Bhavya.io</span>
+      </div>
+      
+      <button class="create-btn">
+        <span>Create New Pitch</span>
+        <span class="plus-icon">+</span>
+      </button>
+
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          Dashboard
+        </a>
+        <a href="#" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+          Courses
+        </a>
+        <a href="#" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          Attendance
+        </a>
+        <a href="#" class="nav-item">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+
+        <button id="logout-btn" class="nav-item logout-link">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Log Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <h1 class="page-title">Dashboard</h1>
+          <p class="current-date" id="today-date">Monday, 02 March 2026</p>
+        </div>
+        <div class="header-right">
+          <button class="icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          </button>
+          <button class="icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          </button>
+          <div class="user-profile">
+            <div class="avatar" id="avatar"><span id="avatar-text">AJ</span></div>
+            <span class="user-name" id="user-name">Alyssa Jones</span>
+            <svg class="dropdown-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+        </div>
+      </header>
+
+      <!-- Hero Banner -->
+      <section class="hero-banner">
+        <div class="hero-text">
+          <h2 class="hero-greeting" id="greeting">Hi, <span id="hero-name">Alyssa</span></h2>
+          <p class="hero-subtext">Ready to start your day with some great classes?</p>
+        </div>
+        <div class="hero-illustration">
+          <Image src={logInImg} alt="Character" class="hero-image" />
+        </div>
+      </section>
+
+      <!-- Overview Cards -->
+      <section class="overview-section">
+        <h3 class="section-title">Overview</h3>
+        <div class="stats-grid">
+          
+          <div class="stat-card card-yellow">
+            <div class="card-left">
+              <div class="icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+              </div>
+            </div>
+            <div class="card-right">
+              <h4 class="stat-value" id="attendance-pct">0%</h4>
+              <p class="stat-label">Attendance Rate</p>
+            </div>
+          </div>
+
+          <div class="stat-card card-dark-purple">
+            <div class="card-left">
+              <div class="icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              </div>
+            </div>
+            <div class="card-right">
+              <h4 class="stat-value" id="total-present">0</h4>
+              <p class="stat-label">Days Present</p>
+            </div>
+          </div>
+
+          <div class="stat-card card-pink">
+            <div class="card-left">
+              <div class="icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+              </div>
+            </div>
+            <div class="card-right">
+              <h4 class="stat-value" id="total-absent">0</h4>
+              <p class="stat-label">Days Absent</p>
+            </div>
+          </div>
+
+          <div class="stat-card card-light-purple">
+            <div class="card-left">
+              <div class="icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </div>
+            </div>
+            <div class="card-right">
+              <h4 class="stat-value" id="total-classes">0</h4>
+              <p class="stat-label">Total Classes</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Action & Records Section -->
+      <section class="action-section">
+        
+        <div class="left-column">
+          <!-- Today Attendance Item -->
+          <div class="action-card" id="today-card">
+            <div class="action-card-header">
+              <div class="action-icon bg-yellow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              </div>
+              <div>
+                <h4 class="item-title">Today's Attendance</h4>
+                <p class="item-meta" id="today-day-str">—</p>
+              </div>
+            </div>
+            <div class="action-card-body">
+              <p class="item-desc" id="submit-status-text">You haven't marked your attendance yet. Mark yourself present now!</p>
+              <div class="action-toggle-row">
+                <span class="status-label">Action</span>
+                <button class="toggle-btn" id="submit-attendance-btn">
+                  <div class="toggle-knob"></div>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upcoming Classes Card -->
+          <div class="action-card" id="schedule-card">
+            <div class="action-card-header">
+              <div class="action-icon bg-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
+              <div>
+                <h4 class="item-title">Upcoming Classes</h4>
+                <p class="item-meta">Today's Schedule</p>
+              </div>
+            </div>
+            <div class="schedule-list">
+              <div class="schedule-item">
+                <div class="sch-time">10:00 AM</div>
+                <div class="sch-details">
+                  <p class="sch-title">Advanced Mathematics</p>
+                  <p class="sch-room">Room 302</p>
+                </div>
+              </div>
+              <div class="schedule-item">
+                <div class="sch-time">01:30 PM</div>
+                <div class="sch-details">
+                  <p class="sch-title">Physics Lab</p>
+                  <p class="sch-room">Laboratory 4</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Calendar Card -->
+        <div class="action-card">
+           <div class="action-card-header">
+             <div class="action-icon bg-purple">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10H3"></path><path d="M21 6V20a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M16 2v4"></path><path d="M8 2v4"></path></svg>
+             </div>
+             <div>
+               <h4 class="item-title">Attendance Calendar</h4>
+               <p class="item-meta" id="month-chip">August 2026</p>
+             </div>
+           </div>
+           
+           <div class="calendar-wrapper">
+              <div class="cal-weekdays">
+                <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
+              </div>
+              <div class="cal-grid" id="cal-grid"></div>
+           </div>
+           
+           <div class="cal-legend">
+              <span class="leg-item"><span class="leg-dot ld-green"></span>Present</span>
+              <span class="leg-item"><span class="leg-dot ld-red"></span>Absent</span>
+           </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</DashboardLayout>
+
+<script>
+  import { auth, db } from '../lib/firebase.js';
+  import { onAuthStateChanged, signOut } from 'firebase/auth';
+  import { doc, getDoc, setDoc, collection, query, where, getDocs, orderBy } from 'firebase/firestore';
+
+  // ── Helpers ─────────────────────────────────────────────────────────────
+  function todayKey() {
+    const n = new Date();
+    return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
+  }
+  function dateKey(y: number, m: number, d: number) {
+    return `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  }
+
+  // ── Greeting & Date ──────────────────────────────────────────────────────
+  const now = new Date();
+  const hr = now.getHours();
+  let greetingStr = hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : 'Good evening';
+  
+  const dateStr = now.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'2-digit' });
+  const dayStr = now.toLocaleDateString('en-US', { weekday:'long', month:'short', day:'numeric' });
+  
+  document.getElementById('today-date')!.textContent = dateStr;
+  document.getElementById('today-day-str')!.textContent = dayStr;
+  document.getElementById('month-chip')!.textContent = now.toLocaleDateString('en-US', { month:'long', year:'numeric' });
+
+  // ── Calendar Builder ─────────────────────────────────────────────────────
+  function buildCalendar(attendanceMap: Record<string, string>) {
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const today = now.getDate();
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const grid = document.getElementById('cal-grid')!;
+    if (!grid) return;
+    grid.innerHTML = '';
+
+    for (let i = 0; i < firstDay; i++) {
+      const e = document.createElement('div');
+      e.className = 'cal-cell empty';
+      grid.appendChild(e);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const key = dateKey(year, month, d);
+      const cell = document.createElement('div');
+      const isToday = d === today;
+      const status = attendanceMap[key];
+
+      if (isToday) {
+        const cls = status === 'present' ? 'today-present' : status === 'absent' ? 'today-absent' : 'today-cell';
+        cell.className = `cal-cell ${cls}`;
+        cell.innerHTML = `<span class="cn">${d}</span>`;
+      } else if (status === 'present') {
+        cell.className = 'cal-cell day-present';
+        cell.innerHTML = `<span class="cn">${d}</span>`;
+      } else if (status === 'absent') {
+        cell.className = 'cal-cell day-absent';
+        cell.innerHTML = `<span class="cn">${d}</span>`;
+      } else {
+        cell.className = 'cal-cell day-none';
+        cell.innerHTML = `<span class="cn">${d}</span>`;
+      }
+      grid.appendChild(cell);
+    }
+  }
+
+  // ── Load Attendance ───────────────────────────────────────────────────────
+  async function loadAttendance(uid: string): Promise<Record<string, string>> {
+    const map: Record<string, string> = {};
+    try {
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      const first = `${year}-${String(month+1).padStart(2,'0')}-01`;
+      const last  = `${year}-${String(month+1).padStart(2,'0')}-31`;
+
+      const q = query(
+        collection(db, 'attendance'),
+        where('studentId', '==', uid)
+      );
+      const snap = await getDocs(q);
+
+      let present = 0, absent = 0;
+
+      snap.forEach((ds) => {
+        const d = ds.data();
+        // Filter by current month locally to avoid Firestore composite index error
+        if (d.date >= first && d.date <= last) {
+          map[d.date] = d.status;
+          if (d.status === 'present') present++;
+          else if (d.status === 'absent') absent++;
+        }
+      });
+
+      const total = present + absent;
+      document.getElementById('total-present')!.textContent = String(present);
+      document.getElementById('total-absent')!.textContent = String(absent);
+      document.getElementById('total-classes')!.textContent = String(total);
+      
+      const pct = total > 0 ? Math.round((present / total) * 100) : 0;
+      document.getElementById('attendance-pct')!.textContent = `${pct}%`;
+      
+      buildCalendar(map);
+
+    } catch (err) {
+      console.error(err);
+    }
+    return map;
+  }
+
+  // ── Submit Attendance ─────────────────────────────────────────────────────
+  function setupSubmit(uid: string, map: Record<string, string>) {
+    const btn = document.getElementById('submit-attendance-btn') as HTMLButtonElement;
+    const statusTxt = document.getElementById('submit-status-text')!;
+    const today = todayKey();
+    const recordId = `${uid}_${today}`;
+
+    const already = map[today];
+    if (already) {
+      markDone(btn, statusTxt, already);
+      return;
+    }
+
+    btn.addEventListener('click', async () => {
+      if (btn.classList.contains('active')) return;
+      btn.classList.add('loading');
+      
+      try {
+        await setDoc(doc(db, 'attendance', recordId), {
+          studentId: uid,
+          date: today,
+          status: 'present',
+          submittedBy: 'student',
+          markedAt: new Date().toISOString()
+        });
+
+        btn.classList.remove('loading');
+        markDone(btn, statusTxt, 'present');
+        // Reload to update calendar visually
+        await loadAttendance(uid);
+
+      } catch (err: any) {
+        alert('Failed: ' + err.message);
+        btn.classList.remove('loading');
+      }
+    });
+  }
+
+  function markDone(btn: HTMLButtonElement, txt: HTMLElement, status: string) {
+    if (status === 'present') {
+      btn.classList.add('active');
+      txt.textContent = 'Attendance saved. Have a great day!';
+    } else {
+      btn.classList.add('active');
+      btn.style.backgroundColor = '#f472b6'; // pink for absent
+      txt.textContent = 'You have been marked absent for today.';
+    }
+  }
+
+  // ── Logout ────────────────────────────────────────────────────────────────
+  document.getElementById('logout-btn')!.addEventListener('click', async () => {
+    await signOut(auth);
+    window.location.href = '/login';
+  });
+
+  // ── Auth Guard ────────────────────────────────────────────────────────────
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) { window.location.href = '/login'; return; }
+
+    try {
+      const ud = (await getDoc(doc(db, 'users', user.uid))).data();
+      if (!ud) { window.location.href = '/login'; return; }
+
+      const firstName = (ud.name || 'Student').split(' ')[0];
+      
+      document.getElementById('user-name')!.textContent = ud.name || 'Student';
+      document.getElementById('hero-name')!.textContent = firstName;
+      document.getElementById('greeting')!.innerHTML = `${greetingStr}, <span>${firstName}</span>`;
+      
+      const initials = (ud.name || 'S').split(' ').map((w: string) => w[0]).join('').toUpperCase().slice(0,2);
+      document.getElementById('avatar-text')!.textContent = initials;
+
+      document.getElementById('loading')!.classList.add('hidden');
+      document.getElementById('dashboard-main')!.classList.remove('hidden');
+
+      const attMap = await loadAttendance(user.uid);
+      setupSubmit(user.uid, attMap);
+    } catch (e) { console.error(e); }
+  });
+</script>
+
+<style>
+  /* ── CSS Variables for Bespoke Dark Theme ── */
+  :root {
+    --bg-white: #121212;
+    --bg-gray: #1e1e1e;
+    --sidebar-w: 260px;
+    --text-dark: #f5f5f7;
+    --text-muted: #a0a0a0;
+    --border-color: #333333;
+    
+    --brand-purple: #9b87f5;
+    --brand-light-purple: #2a2a3a;
+    --brand-yellow: #f5b041;
+    --brand-dark-purple: #4c1d95;
+    --brand-pink: #f472b6;
+    
+    --border-radius-lg: 32px;
+    --border-radius-md: 24px;
+    --border-radius-sm: 16px;
+  }
+
+  /* ── Reset & Globals ── */
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; color: var(--text-dark); margin: 0; }
+  .hidden { display: none !important; }
+  
+  /* Loading */
+  .loading-overlay {
+    position: fixed; inset: 0;
+    background: #f7d05c; /* Match external body bg */
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 1.5rem;
+    z-index: 1000;
+  }
+  .loader-spinner {
+    width: 52px; height: 52px;
+    border: 4px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Dashboard App Container ── */
+  .dashboard-app {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--bg-white);
+    overflow: hidden;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width: var(--sidebar-w);
+    background-color: var(--bg-white);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+  }
+  
+  .sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 2.5rem;
+    color: var(--text-dark);
+  }
+  
+  .create-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--bg-gray);
+    border: 1px dashed #444;
+    padding: 0.875rem 1rem;
+    border-radius: var(--border-radius-md);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    margin-bottom: 2.5rem;
+    transition: background 0.2s;
+  }
+  .create-btn:hover { background-color: #2a2a2a; }
+  
+  .plus-icon {
+    background-color: var(--brand-purple);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+  }
+  
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.875rem 1rem;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: var(--border-radius-sm);
+    transition: all 0.2s;
+  }
+  
+  .nav-item:hover {
+    background-color: var(--bg-gray);
+    color: var(--text-dark);
+  }
+  
+  .nav-item.active {
+    color: var(--brand-purple);
+  }
+  
+  .nav-icon {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2;
+  }
+
+  .sidebar-bottom { margin-top: auto; }
+  
+
+  .logout-link {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ── Main Content ── */
+  .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 2.5rem 3rem;
+    background-color: var(--bg-white);
+    overflow-y: auto;
+  }
+
+  /* Top Header */
+  .top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  .page-title { margin: 0; font-size: 1.5rem; font-weight: 700; color: var(--text-dark); }
+  .current-date { margin: 0; font-size: 0.875rem; color: var(--text-muted); margin-top: 0.25rem; }
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .icon-btn {
+    background: none; border: none; cursor: pointer;
+    color: var(--text-muted);
+    display: flex; align-items: center; justify-content: center;
+    padding: 0;
+  }
+  .icon-btn svg { width: 22px; height: 22px; stroke-width: 2; }
+  
+  .user-profile {
+    display: flex; align-items: center; gap: 0.75rem;
+    cursor: pointer;
+  }
+  .avatar {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background-color: var(--brand-light-purple);
+    color: var(--brand-dark-purple);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1rem;
+  }
+  .user-name { font-size: 0.95rem; font-weight: 600; }
+  .dropdown-icon { width: 16px; height: 16px; stroke-width: 2; color: var(--text-muted); }
+
+  /* Hero Banner */
+  .hero-banner {
+    background-color: var(--brand-light-purple);
+    border-radius: var(--border-radius-md);
+    padding: 4.5rem 3rem; /* Increased height */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: visible; /* Prevent clipping */
+    margin-bottom: 2.5rem;
+  }
+  .hero-text { position: relative; z-index: 2; max-width: 60%; }
+  .hero-greeting { 
+    margin: 0 0 0.5rem 0; 
+    font-size: 2.25rem; 
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+  .hero-subtext {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-muted);
+  }
+  .hero-illustration {
+    position: absolute;
+    right: 2rem;
+    bottom: -1rem;
+    width: 300px;
+    z-index: 1;
+  }
+  .hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  /* Overview Cards */
+  .overview-section { margin-bottom: 2.5rem; }
+  .section-title { font-size: 1.1rem; font-weight: 600; color: var(--text-muted); margin-bottom: 1.25rem; }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+  }
+  
+  .stat-card {
+    border-radius: var(--border-radius-md);
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: white;
+  }
+  .card-yellow { background-color: var(--brand-yellow); color: #1e1e1e; }
+  .card-dark-purple { background-color: var(--brand-dark-purple); color: white; }
+  .card-pink { background-color: var(--brand-pink); color: #1e1e1e; }
+  .card-light-purple { background-color: var(--brand-light-purple); color: #9b87f5; border: 1px solid #444; }
+  
+  .card-left .icon-wrapper {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.2);
+  }
+  .card-yellow .icon-wrapper { background: rgba(0,0,0,0.1); }
+  .card-pink .icon-wrapper { background: rgba(0,0,0,0.1); }
+  .card-light-purple .icon-wrapper { background: rgba(155,135,245,0.2); }
+  
+  .icon-wrapper svg { width: 20px; height: 20px; stroke-width: 2; }
+  
+  .card-right { display: flex; flex-direction: column; }
+  .stat-value { margin: 0; font-size: 1.5rem; font-weight: 700; line-height: 1.1; }
+  .stat-label { margin: 0; font-size: 0.75rem; font-weight: 600; opacity: 0.9; margin-top: 4px; }
+
+  /* Action & Records Section */
+  .action-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  
+  .action-card {
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    min-width: 0;
+  }
+  
+  .action-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .action-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+  }
+  .bg-yellow { background-color: var(--brand-yellow); color: #78350f; }
+  .bg-purple { background-color: var(--brand-dark-purple); }
+  .bg-blue { background-color: #3b82f6; }
+  .action-icon svg { width: 24px; height: 24px; stroke-width: 1.5; }
+  
+  .item-title { margin: 0; font-size: 1.1rem; font-weight: 700; color: var(--text-dark); }
+  .item-meta { margin: 0; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); margin-top: 0.25rem; }
+  .item-desc { margin: 0 0 1.5rem 0; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+
+  .action-card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .action-toggle-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background-color: var(--bg-gray);
+    padding: 1rem 1.25rem;
+    border-radius: var(--border-radius-sm);
+  }
+  
+  .status-label { font-size: 0.9rem; font-weight: 600; color: var(--text-dark); }
+  
+  /* Schedule List */
+  .left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .schedule-list {
+    display: flex; flex-direction: column; gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  .schedule-item {
+    display: flex; gap: 1rem; align-items: center;
+    padding-bottom: 1rem; border-bottom: 1px dashed var(--border-color);
+  }
+  .schedule-item:last-child { padding-bottom: 0; border-bottom: none; }
+  .sch-time { font-size: 0.85rem; font-weight: 700; color: var(--brand-purple); min-width: 70px; }
+  .sch-details { display: flex; flex-direction: column; gap: 0.2rem; }
+  .sch-title { margin: 0; font-size: 0.95rem; font-weight: 600; color: var(--text-dark); }
+  .sch-room { margin: 0; font-size: 0.8rem; color: var(--text-muted); }
+  
+  /* Toggle Button */
+  .toggle-btn {
+    width: 50px; height: 28px;
+    border-radius: 30px;
+    background-color: #444;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .toggle-knob {
+    width: 22px; height: 22px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px; left: 3px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    transition: transform 0.3s;
+  }
+  .toggle-btn.active { background-color: var(--brand-purple); }
+  .toggle-btn.active .toggle-knob { transform: translateX(22px); }
+  .toggle-btn.loading .toggle-knob { background-color: #aaa; }
+
+  /* Calendar Grid Styles */
+  .calendar-wrapper { margin-bottom: 1rem; }
+  .cal-weekdays {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    text-align: center; gap: 4px; margin-bottom: 8px;
+  }
+  .cal-weekdays div { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); }
+  
+  .cal-grid {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+  .cal-cell {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-size: 0.85rem; font-weight: 600;
+    cursor: default; position: relative;
+    background-color: var(--bg-gray);
+    color: var(--text-muted);
+  }
+  .cn { font-size: 0.85rem; font-weight: 700; }
+  
+  .cal-cell.empty { background: transparent; }
+  
+  .cal-cell.day-present { background-color: #dcfce7; color: #166534; }
+  .cal-cell.day-absent { background-color: #ffe4e6; color: #e11d48; }
+  .cal-cell.day-none { background-color: var(--bg-white); border: 1px dashed #cbd5e1; }
+  
+  .cal-cell.today-cell {
+    border: 2px solid var(--brand-purple);
+  }
+  .cal-cell.today-present { background-color: #dcfce7; color: #166534; border-color: #22c55e; }
+  .cal-cell.today-absent { background-color: #ffe4e6; color: #e11d48; border-color: #f43f5e; }
+  
+  .cal-legend { display: flex; gap: 1rem; align-items: center; }
+  .leg-item { display: flex; align-items: center; gap: 0.35rem; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
+  .leg-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .ld-green { background-color: #22c55e; }
+  .ld-red { background-color: #f43f5e; }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .sidebar { display: none; } /* Could add a hamburger menu to header */
+    .hero-banner { padding: 2rem; flex-direction: column; align-items: flex-start; text-align: left; }
+    .hero-illustration { position: relative; right: auto; bottom: auto; margin-top: 1rem; width: 200px; align-self: center; }
+    .hero-text { max-width: 100%; }
+    .list-item-card { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .list-item-right { width: 100%; justify-content: space-between; }
+    .records-expand { max-width: 100%; justify-content: flex-start; }
+  }
+</style>

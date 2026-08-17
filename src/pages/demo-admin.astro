@@ -1,0 +1,321 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const students = [
+  { name: 'Rahul Sharma', email: 'rahul@example.com', course: 'RSCIT', initials: 'RS' },
+  { name: 'Priya Patel', email: 'priya@example.com', course: 'Digital Marketing', initials: 'PP' },
+  { name: 'Arjun Singh', email: 'arjun@example.com', course: 'Tally', initials: 'AS' },
+  { name: 'Ananya Mehta', email: 'ananya@example.com', course: 'Web Development', initials: 'AM' },
+  { name: 'Vikram Joshi', email: 'vikram@example.com', course: 'RSCIT', initials: 'VJ' },
+  { name: 'Neha Gupta', email: 'neha@example.com', course: 'B.A.', initials: 'NG' },
+];
+---
+
+<Layout title="Admin Dashboard Demo | Bhavya Career Institute">
+  <div class="demo-banner">
+    👨‍🏫 DEMO MODE — Admin / Teacher View &nbsp;|&nbsp; <a href="/demo-student">Switch to Student Demo →</a>
+  </div>
+
+  <div class="admin-container container">
+    <div class="admin-header">
+      <div>
+        <p class="welcome-label">Good evening 👋</p>
+        <h2>Teacher Dashboard</h2>
+        <p class="subtitle">Manage students and mark attendance</p>
+      </div>
+      <div class="header-right">
+        <div class="avatar-admin">BC</div>
+        <button class="btn btn-outline">Log Out</button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="admin-stats">
+      <div class="admin-stat">
+        <span class="stat-val">{students.length}</span>
+        <span class="stat-lbl">Total Students</span>
+      </div>
+      <div class="admin-stat">
+        <span class="stat-val">5</span>
+        <span class="stat-lbl">Courses Active</span>
+      </div>
+      <div class="admin-stat">
+        <span class="stat-val">4</span>
+        <span class="stat-lbl">Present Today</span>
+      </div>
+      <div class="admin-stat">
+        <span class="stat-val">86%</span>
+        <span class="stat-lbl">Avg Attendance</span>
+      </div>
+    </div>
+
+    <div class="admin-grid">
+      <!-- Student List -->
+      <div class="admin-card">
+        <div class="card-title-row">
+          <h3>All Students</h3>
+          <span class="count-badge">{students.length}</span>
+        </div>
+        <p class="card-subtitle">All enrolled students and their courses.</p>
+        
+        <ul class="student-list" id="pending-list">
+          {students.map((s) => (
+            <li class="student-item">
+              <div class="student-left">
+                <div class="s-avatar">{s.initials}</div>
+                <div class="student-info">
+                  <strong>{s.name}</strong>
+                  <span>{s.email}</span>
+                  <small class="course-tag">{s.course}</small>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Attendance Marking -->
+      <div class="admin-card">
+        <div class="card-title-row">
+          <h3>Mark Attendance</h3>
+          <span class="today-badge">Today</span>
+        </div>
+        <p class="card-subtitle">Select a date and mark students present or absent.</p>
+        
+        <div class="attendance-controls">
+          <input type="date" id="attendance-date" class="date-picker" />
+          <button class="btn" id="load-btn" onclick="loadStudents()">Load Students</button>
+        </div>
+
+        <ul class="student-list" id="attendance-list">
+          {students.map((s) => (
+            <li class="student-item attendance-item">
+              <div class="student-left">
+                <div class="s-avatar">{s.initials}</div>
+                <div class="student-info">
+                  <strong>{s.name}</strong>
+                  <span>{s.email}</span>
+                </div>
+              </div>
+              <div class="attendance-btns">
+                <button class="present-btn mark-btn" onclick="markPresent(this)">✓ Present</button>
+                <button class="absent-btn mark-btn" onclick="markAbsent(this)">✗ Absent</button>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <div id="save-row" class="save-row">
+          <button class="btn save-btn" onclick="saveAttendance()">💾 Save All Attendance</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Set today's date
+  const picker = document.getElementById('attendance-date') as HTMLInputElement;
+  if (picker) picker.valueAsDate = new Date();
+
+  (window as any).markPresent = function(btn: HTMLButtonElement) {
+    const item = btn.closest('.student-item') as HTMLElement;
+    if (!item) return;
+    item.style.borderLeft = '4px solid #4CAF50';
+    item.style.background = '#f1f8f1';
+    const absent = item.querySelector('.absent-btn') as HTMLButtonElement;
+    if (absent) { absent.style.opacity = '0.4'; absent.style.transform = 'scale(0.9)'; }
+    btn.style.background = '#4CAF50';
+    btn.style.color = 'white';
+  };
+
+  (window as any).markAbsent = function(btn: HTMLButtonElement) {
+    const item = btn.closest('.student-item') as HTMLElement;
+    if (!item) return;
+    item.style.borderLeft = '4px solid #f44336';
+    item.style.background = '#fff5f5';
+    const present = item.querySelector('.present-btn') as HTMLButtonElement;
+    if (present) { present.style.opacity = '0.4'; present.style.transform = 'scale(0.9)'; }
+    btn.style.background = '#f44336';
+    btn.style.color = 'white';
+  };
+
+  (window as any).saveAttendance = function() {
+    const saveBtn = document.querySelector('#save-row .btn') as HTMLButtonElement;
+    if (saveBtn) {
+      saveBtn.textContent = '✓ All Attendance Saved!';
+      saveBtn.style.background = '#4CAF50';
+      saveBtn.style.color = 'white';
+      setTimeout(() => {
+        saveBtn.textContent = '💾 Save All Attendance';
+        saveBtn.style.background = '';
+        saveBtn.style.color = '';
+      }, 2000);
+    }
+  };
+
+  (window as any).loadStudents = function() {
+    const btn = document.getElementById('load-btn') as HTMLButtonElement;
+    btn.textContent = 'Loaded ✓';
+    btn.style.background = '#4CAF50';
+    btn.style.color = 'white';
+    setTimeout(() => {
+      btn.textContent = 'Load Students';
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 1500);
+  };
+</script>
+
+<style>
+  .demo-banner {
+    background: linear-gradient(90deg, #1a1a2e, #16213e);
+    color: white;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .demo-banner a { color: #B7C6D9; font-weight: 700; }
+
+  .admin-container { padding: 3rem 2rem 5rem; }
+
+  .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    background: var(--color-white);
+    padding: 2rem 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+  .welcome-label { font-size: 0.9rem; color: rgba(43,43,43,0.6); margin-bottom: 0.3rem; }
+  .admin-header h2 { font-size: 2rem; margin-bottom: 0.3rem; }
+  .subtitle { color: rgba(43,43,43,0.6); font-size: 0.95rem; }
+  .header-right { display: flex; align-items: center; gap: 1.5rem; }
+  .avatar-admin {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, var(--color-text), #4A5568);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1.1rem; color: white;
+  }
+
+  /* Stats */
+  .admin-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  @media(max-width: 768px) { .admin-stats { grid-template-columns: 1fr 1fr; } }
+  .admin-stat {
+    background: var(--color-white);
+    padding: 1.5rem;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    transition: transform 0.3s;
+  }
+  .admin-stat:hover { transform: translateY(-4px); }
+  .stat-val { display: block; font-size: 2.2rem; font-weight: 700; font-family: var(--font-heading); }
+  .stat-lbl { font-size: 0.82rem; color: rgba(43,43,43,0.6); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* Grid */
+  .admin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  @media(max-width: 900px) { .admin-grid { grid-template-columns: 1fr; } }
+  .full-width { margin-top: 0; }
+
+  .admin-card {
+    background: var(--color-white);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  }
+  .card-title-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .card-title-row h3 { font-size: 1.3rem; }
+  .count-badge {
+    background: #e3f2fd; color: #1565c0;
+    padding: 0.2rem 0.7rem; border-radius: 50px;
+    font-size: 0.85rem; font-weight: 700;
+  }
+  .today-badge {
+    background: var(--color-light-bg);
+    padding: 0.2rem 0.8rem; border-radius: 50px;
+    font-size: 0.82rem; font-weight: 500;
+  }
+  .card-subtitle { color: rgba(43,43,43,0.6); font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+  /* Student list */
+  .student-list { list-style: none; padding: 0; max-height: 400px; overflow-y: auto;}
+  .student-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--color-light-bg);
+    border-radius: 12px;
+    margin-bottom: 0.8rem;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+  }
+  .student-left { display: flex; align-items: center; gap: 1rem; }
+  .s-avatar {
+    width: 44px; height: 44px;
+    background: var(--color-secondary);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.9rem; color: var(--color-text);
+    flex-shrink: 0;
+  }
+  .student-info strong { display: block; font-size: 0.95rem; margin-bottom: 0.1rem; }
+  .student-info span { font-size: 0.82rem; color: rgba(43,43,43,0.6); }
+  .course-tag {
+    display: inline-block;
+    background: rgba(183, 198, 217, 0.3);
+    color: var(--color-text);
+    padding: 0.15rem 0.6rem;
+    border-radius: 50px;
+    font-size: 0.72rem !important;
+    font-weight: 600;
+    margin-top: 0.3rem;
+  }
+
+  /* Attendance */
+  .attendance-controls { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+  .date-picker {
+    flex: 1; padding: 0.75rem 1rem;
+    border: 2px solid rgba(43,43,43,0.1);
+    border-radius: 50px; font-family: var(--font-body);
+    font-size: 0.95rem; background: var(--color-light-bg);
+  }
+  .date-picker:focus { outline: none; border-color: var(--color-secondary); }
+
+  .attendance-btns { display: flex; gap: 0.5rem; }
+  .mark-btn {
+    border: none; padding: 0.5rem 0.9rem;
+    border-radius: 50px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+    font-size: 0.82rem; font-family: var(--font-body);
+  }
+  .present-btn { background: #e8f5e9; color: #2e7d32; }
+  .absent-btn { background: #ffebee; color: #c62828; }
+
+  .save-row {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .save-btn { width: 100%; transition: all 0.3s; }
+</style>
