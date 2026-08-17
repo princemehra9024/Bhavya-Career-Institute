@@ -667,218 +667,201 @@ import studentImg from '../assets/student-img.png';
   .courses-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 2.5rem; /* Increased gap */
-    perspective: 1200px; /* Added for 3D effect */
+    gap: 2.5rem;
   }
 
   .course-card {
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(20px);
+    background: var(--color-white);
     border-radius: 30px;
     padding: 0;
-    overflow: visible;
+    overflow: hidden;
     filter: drop-shadow(0 15px 30px rgba(0,0,0,0.05));
     transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.5s ease;
     display: flex;
     flex-direction: column;
-    transform-style: preserve-3d;
     position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.4);
   }
+
   .course-card:hover {
-    transform: translateY(-12px) rotateX(4deg) rotateY(-2deg);
-    filter: drop-shadow(-10px 20px 30px rgba(0,0,0,0.08)) drop-shadow(10px 20px 30px rgba(0,0,0,0.06));
+    transform: translateY(-12px);
+    filter: drop-shadow(0 25px 40px rgba(0,0,0,0.12));
     z-index: 2;
-  }
-
-  /* Creative Outline on Hover */
-  .course-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 30px;
-    padding: 3px; /* Border thickness */
-    background: linear-gradient(
-      135deg,
-      #ff5f56, #ffbd2e, #27c93f, #3b82f6, #9b87f5, #ff5f56
-    );
-    background-size: 200% 200%;
-    animation: gradient-border 3s linear infinite;
-    -webkit-mask: 
-      linear-gradient(#fff 0 0) content-box, 
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    z-index: 10;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-
-  .course-card:hover::after {
-    opacity: 1;
-  }
-
-  @keyframes gradient-border {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 200% 50%; }
   }
 
   /* ── Visual Stack Area ── */
   .card-visual {
     position: relative;
-    height: 300px; /* Increased height */
-    background: linear-gradient(135deg, #f8f9fa 0%, #e2e8f0 100%);
+    height: 240px;
+    background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
     border-radius: 30px 30px 0 0;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    transition: background 0.5s ease;
+    transition: all 0.5s ease;
+    overflow: hidden;
   }
   
+  .course-card:nth-child(2) .card-visual {
+    background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+  }
+
+  .course-card:nth-child(3) .card-visual {
+    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+  }
+
+  .course-card:nth-child(4) .card-visual {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  }
+
   .course-card:hover .card-visual {
-    background: linear-gradient(135deg, #ffffff 0%, #dbe4ef 100%);
+    height: 260px;
   }
 
   /* Light streak background effect */
   .streak {
     position: absolute;
     inset: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(ellipse 70% 60% at 60% 40%, rgba(255,255,255,0.55) 0%, transparent 70%),
-      linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.18) 60%, transparent 80%);
+    background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.6) 0%, transparent 60%);
+    opacity: 0.8;
   }
 
   /* Mini tile stack */
   .tile-stack {
     position: relative;
-    width: 110px;
+    width: 120px;
     height: 120px;
-    transform: translateZ(30px);
-    transition: transform 0.5s ease;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   
   .course-card:hover .tile-stack {
-    transform: translateZ(50px) scale(1.05);
+    transform: scale(1.1) translateY(-10px);
   }
 
   .mini-tile {
     position: absolute;
     width: 90px;
-    background: rgba(255,255,255,0.85);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255,255,255,1);
-    border-radius: 16px;
-    padding: 0.7rem 0.6rem;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.8);
+    border-radius: 20px;
+    padding: 1rem 0.6rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    gap: 8px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     transform-origin: bottom center;
   }
-  .mini-tile span { font-size: 1.8rem; line-height: 1; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
+  
+  .mini-tile span { 
+    font-size: 2.2rem; 
+    line-height: 1; 
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15)); 
+  }
+  
   .mini-tile small {
-    font-size: 0.65rem;
-    font-weight: 800;
+    font-size: 0.7rem;
+    font-weight: 700;
     color: var(--color-text);
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
   
   /* Stacked positions & tilts */
-  .t3 { bottom: 0; left: 10px;  transform: rotate(-10deg) translateY(5px); z-index: 1; opacity: 0.8; }
-  .t2 { bottom: 10px; left: 10px; transform: rotate(-3deg) translateY(2px); z-index: 2; opacity: 0.9; }
-  .t1 { bottom: 20px; left: 10px; transform: rotate(5deg);  z-index: 3; box-shadow: 0 10px 30px rgba(0,0,0,0.12); opacity: 1; }
+  .t3 { bottom: 0; left: 15px; transform: rotate(-12deg) translateY(10px) scale(0.9); z-index: 1; opacity: 0.7; }
+  .t2 { bottom: 10px; left: 15px; transform: rotate(-4deg) translateY(5px) scale(0.95); z-index: 2; opacity: 0.85; }
+  .t1 { bottom: 20px; left: 15px; transform: rotate(4deg); z-index: 3; opacity: 1; box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
 
   /* On hover — dynamic fan out */
-  .course-card:hover .t3 { transform: rotate(-20deg) translate(-15px, 10px) scale(0.95); opacity: 1; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-  .course-card:hover .t2 { transform: rotate(-4deg) translate(0px, -5px) scale(1.02); opacity: 1; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-  .course-card:hover .t1 { transform: rotate(15deg) translate(15px, -15px) scale(1.1); opacity: 1; box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+  .course-card:hover .t3 { transform: rotate(-25deg) translate(-25px, 15px) scale(0.95); opacity: 1; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+  .course-card:hover .t2 { transform: rotate(-8deg) translate(0px, 0px) scale(1); opacity: 1; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+  .course-card:hover .t1 { transform: rotate(18deg) translate(25px, -15px) scale(1.1); opacity: 1; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
 
   /* Floating badge over the stack */
   .floating-badge {
     position: absolute;
-    top: 16px;
-    right: 16px;
-    background: rgba(255,255,255,0.95);
+    top: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.7);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,1);
     color: var(--color-text);
-    font-size: 0.65rem;
-    font-weight: 800;
-    letter-spacing: 1.2px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    padding: 0.4rem 0.9rem;
+    padding: 0.5rem 1rem;
     border-radius: 50px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
     z-index: 10;
-    transform: translateZ(40px);
-    transition: transform 0.5s ease;
+    transition: all 0.4s ease;
   }
   
   .course-card:hover .floating-badge {
-    transform: translateZ(60px) scale(1.05);
+    transform: translateY(-5px) scale(1.05);
+    background: rgba(255,255,255,0.9);
   }
 
   /* ── Card Body ── */
   .card-body {
-    padding: 2.5rem 2.5rem 3.5rem; /* Luxurious padding */
+    padding: 2.5rem;
     display: flex;
     flex-direction: column;
     flex: 1;
-    transform: translateZ(20px);
-    transition: transform 0.5s ease;
     background: var(--color-white);
     border-radius: 0 0 30px 30px;
   }
   
-  .course-card:hover .card-body {
-    transform: translateZ(30px);
-  }
-
   .card-body h3 {
-    font-size: 1.6rem; /* Increased font size */
-    font-weight: 800;
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
     color: var(--color-text);
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
     line-height: 1.2;
     letter-spacing: -0.5px;
   }
+  
   .card-body p {
-    font-size: 1rem; /* Increased font size */
-    color: rgba(43,43,43,0.65);
+    font-size: 1.05rem;
+    color: rgba(43,43,43,0.7);
     line-height: 1.6;
     flex: 1;
   }
+  
   .card-divider {
     border: none;
-    border-top: 1px dashed rgba(43,43,43,0.15);
-    margin: 1.5rem 0 1.5rem; /* Increased margin */
+    border-top: 1.5px dashed rgba(43,43,43,0.1);
+    margin: 2rem 0;
   }
+  
   .card-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 0.5rem;
   }
+  
   .bonus {
-    font-size: 0.8rem;
-    font-weight: 800;
-    color: #4CAF50;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #f59e0b;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
+  
   .pill-btn {
-    background: linear-gradient(135deg, var(--color-text), #3a4556);
+    background: var(--color-text);
     color: var(--color-white);
     border: none;
-    padding: 0.6rem 1.4rem;
+    padding: 0.8rem 1.6rem;
     border-radius: 50px;
-    font-weight: 800;
-    font-size: 0.85rem;
+    font-weight: 700;
+    font-size: 0.9rem;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     text-decoration: none;
@@ -886,11 +869,12 @@ import studentImg from '../assets/student-img.png';
     flex-shrink: 0;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   }
+  
   .pill-btn:hover {
-    background: linear-gradient(135deg, var(--color-secondary), #8fa5bb);
-    color: var(--color-white);
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(183, 198, 217, 0.5);
+    background: var(--color-secondary);
+    color: var(--color-text);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(183, 198, 217, 0.6);
   }
 
   @media (max-width: 992px) {
