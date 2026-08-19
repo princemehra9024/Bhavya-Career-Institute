@@ -1,1012 +1,1329 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { Image } from 'astro:assets';
-import studentImg from '../assets/student-img.png';
 ---
 
 <Layout title="Bhavya Career Institute | Master the Digital World">
-  <canvas id="scroll-animation-canvas"></canvas>
   <!-- Hero Section -->
   <section class="hero container">
-    <div class="hero-bg-glow"></div>
-    <div class="hero-content fade-up">
-      <div class="badge-wrapper">
-        <span class="badge-pulse"></span>
-        <span class="badge">95% SUCCESS COURSE RATE</span>
-      </div>
-      <h1 class="hero-title">
-        <span class="text-reveal">Unlock Your Potential</span><br />
-        with <span class="text-gradient">Bhavya Career Institute</span>
-      </h1>
-      <p class="hero-subtitle">Explore learning opportunities tailored just for you. Bhavya Career Institute empowers you to expand your horizons, acquire new skills, and achieve your goals with expert-led courses like RSCIT, Tally, and Programming.</p>
-      
-      <div class="hero-search-bar">
-        <div class="search-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </div>
-        <input type="text" placeholder="Search courses..." class="search-input" />
-        <a href="#courses" class="btn btn-search">Search Courses</a>
-      </div>
-      
-      <div class="hero-stats-new">
-        <div class="stat-item-new">
-          <span class="stat-value-new">50+</span>
-          <span class="stat-label-new">Courses Available</span>
-        </div>
-        <div class="stat-item-new">
-          <span class="stat-value-new">100%</span>
-          <span class="stat-label-new">Practical Training</span>
-        </div>
-      </div>
+    <div class="hero-content">
+      <h1 class="hero-text">Master the digital<br/>landscape for success</h1>
+      <p class="hero-text">Bhavya Career Institute helps students grow and succeed in the digital world through a range of professional courses including RSCIT, Tally, Digital Marketing, and Web Development.</p>
+      <a href="/signup" class="btn magnetic hero-text">Enroll Now</a>
     </div>
-    <div class="hero-visual fade-up">
-      <!-- Decorative floating elements -->
-      <div class="floating-star el-1">
-        <svg viewBox="0 0 24 24" fill="#ffbd2e" stroke="none" width="30" height="30"><path d="M12 2L14.4 9.6H22L15.8 14.1L18.2 21.7L12 17.2L5.8 21.7L8.2 14.1L2 9.6H9.6L12 2Z"/></svg>
-      </div>
-      <div class="floating-star el-2">
-        <svg viewBox="0 0 24 24" fill="#3b82f6" stroke="none" width="20" height="20"><path d="M12 2L14.4 9.6H22L15.8 14.1L18.2 21.7L12 17.2L5.8 21.7L8.2 14.1L2 9.6H9.6L12 2Z"/></svg>
-      </div>
-      
-      <!-- Primary Hero Image -->
-      <Image src={studentImg} alt="Student learning" class="hero-illustration-img" />
+    <div class="hero-visual">
+      <!-- Abstract SVG similar to the megaphone -->
+      <svg width="500" height="400" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Abstract Rings -->
+        <ellipse class="hero-ring" cx="250" cy="220" rx="180" ry="60" transform="rotate(-15 250 220)" stroke="black" stroke-width="1.5" stroke-dasharray="8 8"/>
+        <ellipse class="hero-ring" cx="250" cy="220" rx="150" ry="45" transform="rotate(-15 250 220)" stroke="black" stroke-width="1.5"/>
+        <ellipse class="hero-ring" cx="250" cy="220" rx="120" ry="30" transform="rotate(-15 250 220)" stroke="black" stroke-width="1.5"/>
+        
+        <g class="hero-megaphone">
+          <!-- Megaphone Body -->
+          <path d="M290 120 L400 180 L380 260 L240 180 Z" fill="white" stroke="black" stroke-width="4" stroke-linejoin="round"/>
+          <!-- Megaphone Back/Speaker -->
+          <ellipse cx="265" cy="150" rx="40" ry="70" transform="rotate(30 265 150)" fill="#B9FF66" stroke="black" stroke-width="4"/>
+          <ellipse cx="400" cy="220" rx="20" ry="50" transform="rotate(28 400 220)" fill="white" stroke="black" stroke-width="4"/>
+          
+          <!-- Handle -->
+          <path d="M320 210 L300 280" stroke="black" stroke-width="12" stroke-linecap="round"/>
+          <path d="M300 280 L280 270" stroke="black" stroke-width="12" stroke-linecap="round"/>
+        </g>
+        
+        <!-- Accent Stars/Shapes -->
+        <g class="hero-shapes">
+          <path d="M120 280 L135 295 L120 310 L105 295 Z" fill="black"/>
+          <circle cx="340" cy="320" r="8" fill="black"/>
+          <circle cx="150" cy="80" r="15" fill="black"/>
+          <circle cx="380" cy="70" r="18" fill="#B9FF66"/>
+        </g>
+      </svg>
     </div>
   </section>
 
-  <!-- Community Section -->
-  <section class="community-section container fade-up">
-    <div class="community-header">
-      <div class="community-stats">
-        <p>With more than</p>
-        <h3>2K+ Members<br/>500+ Tutorials</h3>
+  <!-- Brands Section (Marquee) -->
+  <section class="brands-wrapper gsap-reveal">
+    <div class="brands-marquee">
+      <div class="brands-track">
+        <div class="brand">RKCL</div>
+        <div class="brand">VMOU</div>
+        <div class="brand">Tally</div>
+        <div class="brand">RSCIT</div>
+        <div class="brand">Microsoft</div>
+        <div class="brand">Google</div>
+        <!-- Duplicate for infinite scroll -->
+        <div class="brand">RKCL</div>
+        <div class="brand">VMOU</div>
+        <div class="brand">Tally</div>
+        <div class="brand">RSCIT</div>
+        <div class="brand">Microsoft</div>
+        <div class="brand">Google</div>
       </div>
-      <a href="/signup" class="btn btn-join">Join Us <span class="arrow">↗</span></a>
+    </div>
+  </section>
+
+  <!-- Interactive Dashboard & Attendance Section -->
+  <section class="dashboard-section container gsap-reveal" id="student-portal">
+    <div class="dashboard-grid">
+      
+      <!-- Left: Attendance -->
+      <div class="attendance-card magnetic-light">
+        <div class="attendance-header">
+          <h3>Daily Attendance</h3>
+          <span class="pulse-indicator"></span>
+        </div>
+        <p class="attendance-desc">Submit your attendance for today's session quickly and easily.</p>
+        
+        <form class="attendance-form" onsubmit="event.preventDefault();">
+          <div class="input-group">
+            <input type="text" id="studentId" required placeholder=" " />
+            <label for="studentId">Student ID</label>
+          </div>
+          <div class="input-group">
+            <select id="courseSelect" required>
+              <option value="" disabled selected>Select Course</option>
+              <option value="rscit">RSCIT</option>
+              <option value="tally">Tally</option>
+              <option value="digital-marketing">Digital Marketing</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-full submit-btn">
+            <span class="btn-text">Mark Present</span>
+          </button>
+        </form>
+
+        <div class="attendance-footer">
+          <div class="divider"><span>OR</span></div>
+          <a href="/login" class="btn btn-outline btn-full login-btn">Login to Dashboard</a>
+        </div>
+      </div>
+
+      <!-- Right: Informational / Interactive Dashboard -->
+      <div class="info-dashboard">
+        <div class="dashboard-glow"></div>
+        
+        <div class="info-card main-highlight float-anim-1">
+          <div class="card-top">
+            <span class="highlight-badge">Trending</span>
+            <div class="live-dot"></div>
+          </div>
+          <h3>Learn from the Best</h3>
+          <p>Interactive lab sessions, weekly tests, and 1-on-1 mentorship to guarantee your success.</p>
+          
+          <div class="feature-pills">
+            <span class="pill">Smart Classes</span>
+            <span class="pill">AC Labs</span>
+            <span class="pill">Free WiFi</span>
+          </div>
+        </div>
+        
+        <div class="stats-row">
+          <div class="info-card mini-stat float-anim-2">
+            <div class="circular-progress">
+              <svg viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" class="bg-circle" />
+                <circle cx="50" cy="50" r="40" class="progress-circle" />
+              </svg>
+              <div class="progress-text">98%</div>
+            </div>
+            <p>Passing Rate</p>
+          </div>
+          
+          <div class="info-card mini-stat float-anim-3">
+            <div class="chart-mini">
+              <div class="bar-mini b1"></div>
+              <div class="bar-mini b2"></div>
+              <div class="bar-mini b3"></div>
+              <div class="bar-mini b4"></div>
+            </div>
+            <p>Career Growth</p>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- Success Stats Section -->
+  <section class="stats-container container gsap-reveal" id="stats">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3 class="stat-number">10k+</h3>
+        <p>Students Taught</p>
+      </div>
+      <div class="stat-card">
+        <h3 class="stat-number">50+</h3>
+        <p>Expert Mentors</p>
+      </div>
+      <div class="stat-card">
+        <h3 class="stat-number">15+</h3>
+        <p>Courses Offered</p>
+      </div>
+      <div class="stat-card">
+        <h3 class="stat-number">100%</h3>
+        <p>Job Assistance</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Journey Section -->
+  <section class="journey container gsap-reveal" id="about">
+    <div class="section-header">
+      <h2>Our Journey</h2>
+      <p>Discover how Bhavya Career Institute started and our mission to bridge the digital skill gap.</p>
+    </div>
+    <div class="journey-content">
+      <div class="journey-text">
+        <h3>Empowering Students Since 2010</h3>
+        <p>What started as a small computer training center has grown into a premier institute for digital education. We believe in practical, hands-on learning that prepares our students for real-world challenges.</p>
+        <p>Our goal is to make quality education accessible and to turn beginners into professionals ready to conquer the digital landscape.</p>
+        <a href="#courses" class="btn magnetic">Explore Courses</a>
+      </div>
+      <div class="journey-visual">
+        <div class="journey-image-placeholder">
+          <svg width="100%" height="100%" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="300" rx="30" fill="var(--color-dark)"/>
+            <circle cx="200" cy="150" r="80" fill="var(--color-neon)"/>
+            <path d="M180 120 L240 150 L180 180 Z" fill="var(--color-dark)"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses Section (Services) -->
+  <section class="courses container" id="courses">
+    <div class="section-header gsap-reveal">
+      <h2>Courses</h2>
+      <p>At our institute, we offer a range of professional courses to help students master computing, accounting, and digital skills.</p>
+    </div>
+
+    <div class="courses-grid">
+      <!-- Card 1: RSCIT & Tally -->
+      <div class="course-card card-light gsap-reveal">
+        <div class="card-content">
+          <div class="card-title">
+            <span class="highlight-green">RSCIT &</span><br/>
+            <span class="highlight-green">Tally</span>
+          </div>
+          <a href="/signup" class="card-link">
+            <span class="icon-circle black"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+            Learn more
+          </a>
+        </div>
+        <div class="card-illustration">
+          <svg width="150" height="120" viewBox="0 0 150 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="20" width="100" height="70" rx="8" fill="white" stroke="black" stroke-width="3"/>
+            <path d="M40 40 H100 M40 55 H80 M40 70 H60" stroke="black" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="110" cy="80" r="25" fill="#B9FF66" stroke="black" stroke-width="3"/>
+            <path d="M100 80 L108 88 L125 70" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Card 2: Digital Marketing -->
+      <div class="course-card card-dark gsap-reveal">
+        <div class="card-content">
+          <div class="card-title">
+            <span class="highlight-white">Digital</span><br/>
+            <span class="highlight-white">Marketing</span>
+          </div>
+          <a href="/signup" class="card-link light">
+            <span class="icon-circle white"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+            Learn more
+          </a>
+        </div>
+        <div class="card-illustration">
+          <svg width="150" height="120" viewBox="0 0 150 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="30" width="90" height="60" rx="8" fill="black" stroke="white" stroke-width="3"/>
+            <circle cx="75" cy="60" r="15" fill="white"/>
+            <path d="M10 50 L20 60 L10 70" stroke="white" stroke-width="3" stroke-linecap="round"/>
+            <rect x="50" y="80" width="50" height="10" fill="white"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Card 3: Web & Programming -->
+      <div class="course-card card-dark gsap-reveal">
+        <div class="card-content">
+          <div class="card-title">
+            <span class="highlight-white">Web &</span><br/>
+            <span class="highlight-white">Programming</span>
+          </div>
+          <a href="/signup" class="card-link light">
+            <span class="icon-circle white"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+            Learn more
+          </a>
+        </div>
+        <div class="card-illustration">
+          <svg width="150" height="120" viewBox="0 0 150 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 40 L60 20 L100 40 L100 80 L60 100 L20 80 Z" fill="black" stroke="white" stroke-width="3" stroke-linejoin="round"/>
+            <circle cx="60" cy="60" r="8" fill="#B9FF66"/>
+            <path d="M60 20 L60 60" stroke="white" stroke-width="3"/>
+            <path d="M20 80 L60 60 L100 80" stroke="white" stroke-width="3"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Card 4: Distance Education -->
+      <div class="course-card card-light gsap-reveal">
+        <div class="card-content">
+          <div class="card-title">
+            <span class="highlight-green">Distance</span><br/>
+            <span class="highlight-green">Education</span>
+          </div>
+          <a href="/signup" class="card-link">
+            <span class="icon-circle black"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+            Learn more
+          </a>
+        </div>
+        <div class="card-illustration">
+          <svg width="150" height="120" viewBox="0 0 150 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 60 C20 40, 40 20, 75 20 C110 20, 130 40, 130 60 C130 80, 110 100, 75 100 C40 100, 20 80, 20 60 Z" fill="white" stroke="black" stroke-width="3"/>
+            <circle cx="45" cy="60" r="10" fill="black"/>
+            <circle cx="105" cy="60" r="10" fill="black"/>
+            <path d="M65 75 Q75 85 85 75" stroke="black" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Reviews Section -->
+  <section class="reviews container gsap-reveal" id="reviews">
+    <div class="section-header">
+      <h2>Student Reviews</h2>
+      <p>Hear from our successful students who have transformed their careers with our guidance.</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card magnetic-light">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"The RSCIT course at Bhavya was amazing. The teachers are very helpful and I got my certificate easily!"</p>
+        <div class="review-author">
+          <div class="author-avatar">A</div>
+          <div class="author-info">
+            <h4>Aman Sharma</h4>
+            <span>RSCIT Student</span>
+          </div>
+        </div>
+      </div>
+      <div class="review-card magnetic-light">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"Digital Marketing course helped me get a job right after completion. Highly recommended!"</p>
+        <div class="review-author">
+          <div class="author-avatar">P</div>
+          <div class="author-info">
+            <h4>Priya Verma</h4>
+            <span>Digital Marketing</span>
+          </div>
+        </div>
+      </div>
+      <div class="review-card magnetic-light">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">"Tally training was very practical. The lab facilities are top-notch and always available."</p>
+        <div class="review-author">
+          <div class="author-avatar">R</div>
+          <div class="author-info">
+            <h4>Rahul Singh</h4>
+            <span>Tally Student</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta container gsap-reveal">
+    <div class="cta-box">
+      <div class="cta-content">
+        <h3>Let's make things happen</h3>
+        <p>Contact us today to learn more about how our digital courses can help you grow and succeed in your career.</p>
+        <a href="/signup" class="btn magnetic">Enroll Now</a>
+      </div>
+      <div class="cta-illustration">
+        <svg width="250" height="200" viewBox="0 0 250 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="125" cy="120" rx="90" ry="25" fill="none" stroke="black" stroke-width="1.5" stroke-dasharray="6 6"/>
+          <ellipse cx="125" cy="120" rx="110" ry="35" fill="none" stroke="black" stroke-width="1.5"/>
+          
+          <circle cx="125" cy="90" r="40" fill="black"/>
+          <circle cx="110" cy="85" r="8" fill="white"/>
+          <circle cx="140" cy="85" r="8" fill="white"/>
+          
+          <path d="M125 140 L140 170 L110 170 Z" fill="#B9FF66"/>
+          <path d="M190 100 L210 130 L170 130 Z" fill="#E0E0E0"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section (Case Study style) -->
+  <section class="features container">
+    <div class="section-header gsap-reveal">
+      <h2>Features</h2>
+      <p>Explore the exclusive benefits and resources provided to our students to ensure a successful learning journey.</p>
     </div>
     
-    <div class="community-cards">
-      <div class="com-card">
-        <img src="/assets/community_student_1.jpg" alt="Student Working" class="community-img" />
+    <div class="features-box gsap-reveal">
+      <div class="feature-col">
+        <p>Get 2 additional digital courses absolutely free on RSCIT admission. Expand your skill set at no extra cost.</p>
+        <a href="/#courses" class="feature-link">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B9FF66" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
       </div>
-      <div class="com-card center-card">
-        <img src="/assets/community_student_2.jpg" alt="Student Reading" class="community-img" />
+      <div class="feature-col">
+        <p>Learn from industry professionals with real-world experience. Our expert mentors guide you every step of the way.</p>
+        <a href="/#courses" class="feature-link">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B9FF66" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
       </div>
-      <div class="com-card">
-        <Image src={studentImg} alt="Student Learning" class="community-img" />
-      </div>
-    </div>
-  </section>
-
-  <!-- Features Section -->
-  <section class="features" id="about">
-    <div class="container features-container fade-up">
-      <div class="feature-item">
-        <div class="feature-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-        </div>
-        <h3>2 Free Digital Courses</h3>
-        <p>Get 2 additional digital courses absolutely free on RSCIT admission.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
-        </div>
-        <h3>Expert Mentors</h3>
-        <p>Learn from industry professionals with real-world experience.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/></svg>
-        </div>
-        <h3>Library Available</h3>
-        <p>Access our extensive physical and digital library for self-study.</p>
+      <div class="feature-col">
+        <p>Access our extensive physical and digital library for self-study. A quiet and resourceful space dedicated to your growth.</p>
+        <a href="/#courses" class="feature-link">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B9FF66" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
       </div>
     </div>
-  </section>
-
-  <!-- Popular Classes -->
-  <section class="courses" id="courses">
-    <div class="curved-top"></div>
-    <div class="courses-content courses-container">
-      <div class="section-header fade-up">
-        <h2>Our Popular Courses</h2>
-        <p>Hand-picked curriculum to elevate your skills and career.</p>
-      </div>
-      
-      <div class="courses-grid">
-
-        <!-- ── Card 1: RSCIT & Tally ── -->
-        <div class="course-card fade-up">
-          <div class="card-visual">
-            <div class="streak"></div>
-            <div class="tile-stack">
-              <div class="mini-tile t3"><span>📊</span><small>Tally</small></div>
-              <div class="mini-tile t2"><span>🖥️</span><small>MS Office</small></div>
-              <div class="mini-tile t1"><span>💻</span><small>RSCIT</small></div>
-            </div>
-            <span class="floating-badge">ESSENTIAL</span>
-          </div>
-          <div class="card-body">
-            <h3>RSCIT &amp; Tally</h3>
-            <p>Master computing essentials with RSCIT and professional accounting with Tally.</p>
-            <hr class="card-divider" />
-            <div class="card-footer">
-              <span class="bonus">2 Free Digital Courses!</span>
-              <a href="/signup" class="pill-btn">Enroll</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- ── Card 2: Digital Marketing ── -->
-        <div class="course-card fade-up">
-          <div class="card-visual">
-            <div class="streak"></div>
-            <div class="tile-stack">
-              <div class="mini-tile t3"><span>📱</span><small>Social</small></div>
-              <div class="mini-tile t2"><span>🔍</span><small>SEO</small></div>
-              <div class="mini-tile t1"><span>📈</span><small>Marketing</small></div>
-            </div>
-            <span class="floating-badge">TRENDING</span>
-          </div>
-          <div class="card-body">
-            <h3>Digital Marketing</h3>
-            <p>Basic to Advanced — SEO, social media strategy and digital campaign management.</p>
-            <hr class="card-divider" />
-            <div class="card-footer">
-              <span class="bonus">Hands-on Projects</span>
-              <a href="/signup" class="pill-btn">Enroll</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- ── Card 3: Web & Programming ── -->
-        <div class="course-card fade-up">
-          <div class="card-visual">
-            <div class="streak"></div>
-            <div class="tile-stack">
-              <div class="mini-tile t3"><span>🐍</span><small>Python</small></div>
-              <div class="mini-tile t2"><span>🐘</span><small>PHP</small></div>
-              <div class="mini-tile t1"><span>⚛️</span><small>React</small></div>
-            </div>
-            <span class="floating-badge">DEVELOPMENT</span>
-          </div>
-          <div class="card-body">
-            <h3>Web &amp; Programming</h3>
-            <p>React, PHP &amp; Python from basic to advanced — build real-world applications.</p>
-            <hr class="card-divider" />
-            <div class="card-footer">
-              <span class="bonus">Build Real Apps</span>
-              <a href="/signup" class="pill-btn">Enroll</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- ── Card 4: Distance Education ── -->
-        <div class="course-card fade-up">
-          <div class="card-visual">
-            <div class="streak"></div>
-            <div class="tile-stack">
-              <div class="mini-tile t3"><span>🏛️</span><small>MBA</small></div>
-              <div class="mini-tile t2"><span>📖</span><small>B.COM</small></div>
-              <div class="mini-tile t1"><span>🎓</span><small>B.A.</small></div>
-            </div>
-            <span class="floating-badge">DEGREES</span>
-          </div>
-          <div class="card-body">
-            <h3>Distance Education</h3>
-            <p>B.A, B.COM, B.Sc, MBA, BCA, MCA &amp; more — recognised online/distance degrees.</p>
-            <hr class="card-divider" />
-            <div class="card-footer">
-              <span class="bonus">Recognised Degrees</span>
-              <a href="/signup" class="pill-btn">Enroll</a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <div class="curved-bottom"></div>
   </section>
 </Layout>
 
 <style>
-  /* Community Section */
-  .community-section {
-    padding: 4rem 3rem;
-    background-color: #2b2b2b;
-    border-radius: 30px;
-    margin: 2rem auto 4rem auto;
-    color: white;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-  }
-  
-  .community-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 3rem;
-  }
-  
-  .community-stats p {
-    color: #a0a0a0;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-    font-weight: 500;
-  }
-  
-  .community-stats h3 {
-    font-size: 1.6rem;
-    line-height: 1.3;
-    font-family: var(--font-heading);
-    color: white;
-  }
-  
-  .btn-join {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.3);
-    color: white;
-    padding: 0.6rem 0.6rem 0.6rem 1.5rem;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-  }
-  
-  .btn-join:hover {
-    background: rgba(255,255,255,0.1);
-    border-color: rgba(255,255,255,0.6);
-  }
-  
-  .btn-join .arrow {
-    background: white;
-    color: #2b2b2b;
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    transition: transform 0.3s ease;
-  }
-  
-  .btn-join:hover .arrow {
-    transform: rotate(45deg);
-  }
-
-  .community-cards {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    align-items: center;
-  }
-  
-  .com-card {
-    flex: 1;
-    max-width: 320px;
-    height: 380px;
-    background-color: #d9d9d9;
-    border-radius: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    color: #666;
-    font-weight: 600;
-    transition: transform 0.4s ease;
-  }
-  
-  .community-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .com-card:hover {
-    transform: translateY(-10px);
-  }
-  
-  .center-card {
-    height: 440px;
-  }
-  
-  @media (max-width: 900px) {
-    .community-cards {
-      flex-direction: column;
-    }
-    .com-card, .center-card {
-      width: 100%;
-      max-width: 400px;
-      height: 300px;
-    }
-  }
-
-  /* Hero Section - Award Winning Redesign */
+  /* Hero Section */
   .hero {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 6rem 2rem 4rem;
     gap: 2rem;
-    min-height: 90vh;
-    padding-top: 6rem;
-    padding-bottom: 4rem;
-    overflow: hidden;
-  }
-  
-  .hero-bg-glow {
-    position: absolute;
-    top: -20%;
-    left: -10%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(183, 198, 217, 0.4) 0%, rgba(255,255,255,0) 70%);
-    z-index: 0;
-    pointer-events: none;
-    border-radius: 50%;
-    filter: blur(40px);
-  }
-
-  .hero-content {
-    flex: 1 1 50%;
-    max-width: 650px;
-    z-index: 10;
     position: relative;
   }
   
-  .badge-wrapper {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0.5rem 1.2rem;
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 50px;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  }
-
-  .badge-pulse {
-    width: 8px;
-    height: 8px;
-    background-color: #4CAF50;
-    border-radius: 50%;
-    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
-    animation: pulse-green 2s infinite;
-  }
-
-  @keyframes pulse-green {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(76, 175, 80, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw; height: 100%;
+    background: radial-gradient(ellipse at top, rgba(185,255,102,0.15) 0%, transparent 60%);
+    z-index: -1;
+    pointer-events: none;
   }
   
-  .badge {
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    color: var(--color-text);
-  }
-  
-  .hero-title {
-    font-size: 4.5rem;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-    letter-spacing: -1.5px;
-  }
-
-  .text-reveal {
-    display: block;
-    color: var(--color-text);
-  }
-
-  .text-gradient {
-    background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 50%, #93c5fd 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 200% auto;
-    animation: gradient-shift 5s ease infinite;
-    display: inline-block;
-  }
-
-  @keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  
-  .hero-subtitle {
-    font-size: 1.2rem;
-    line-height: 1.7;
-    margin-bottom: 2.5rem;
-    color: rgba(43, 43, 43, 0.75);
-    max-width: 90%;
-  }
-  
-  .hero-search-bar {
-    display: flex;
-    align-items: center;
-    background: #ffffff;
-    padding: 0.5rem;
-    border-radius: 50px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    margin-bottom: 3.5rem;
-    border: 1px solid rgba(0,0,0,0.05);
+  .hero-content {
+    flex: 1;
     max-width: 500px;
   }
-
-  .search-icon {
-    padding: 0 1rem;
-    color: #9ca3af;
-    display: flex;
-    align-items: center;
-  }
-
-  .search-input {
-    flex: 1;
-    border: none;
-    outline: none;
-    font-size: 1rem;
-    font-family: inherit;
-    color: var(--color-text);
-    background: transparent;
-  }
-
-  .search-input::placeholder {
-    color: #9ca3af;
-  }
-
-  .btn-search {
-    background-color: #3b82f6;
-    color: white;
-    padding: 0.8rem 1.8rem;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-  }
-
-  .btn-search:hover {
-    background-color: #2563eb;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
-  }
-
-  .hero-stats-new {
-    display: flex;
-    align-items: center;
-    gap: 4rem;
-    margin-top: 2rem;
-  }
-
-  .stat-item-new {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .stat-value-new {
-    font-family: var(--font-heading);
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--color-text);
-    line-height: 1;
-  }
-
-  .stat-label-new {
-    font-size: 0.9rem;
-    color: rgba(43, 43, 43, 0.6);
+  
+  .hero-content h1 {
+    font-size: 3.5rem;
     font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  
+  .hero-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
   }
   
   .hero-visual {
-    flex: 1 1 50%;
-    position: relative;
+    flex: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-    perspective: 1000px;
-  }
-  
-  #scroll-animation-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    object-fit: cover;
-    opacity: 0.15;
-    pointer-events: none;
+    justify-content: flex-end;
   }
 
-  .hero-illustration-img:hover {
-    transform: perspective(1000px) rotateY(0deg) translateY(-10px);
-  }
-
-  .floating-star {
-    position: absolute;
-    z-index: 20;
-    animation: float 6s ease-in-out infinite, pulse 3s infinite alternate;
-  }
-
-  @keyframes pulse {
-    0% { transform: scale(1); opacity: 0.8; }
-    100% { transform: scale(1.2); opacity: 1; }
-  }
-
-  .el-1 {
-    top: 10%;
-    right: -5%;
-    animation-delay: 0s;
-  }
-
-  .el-2 {
-    bottom: 20%;
-    left: -10%;
-    animation-delay: 2s;
-  }
-
-  @keyframes float {
-    0% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(5deg); }
-    100% { transform: translateY(0px) rotate(0deg); }
-  }
-  
-  @keyframes morph {
-    0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
-    50% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-    100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
-  }
-
-  /* Features */
-  .features {
-    padding: 4rem 0;
+  /* Brands Section Marquee */
+  .brands-wrapper {
+    width: 100%;
+    overflow: hidden;
+    margin: 4rem auto 6rem;
+    padding: 1.5rem 0;
+    background-color: var(--color-neon);
     position: relative;
+    border-top: 3px solid var(--color-dark);
+    border-bottom: 3px solid var(--color-dark);
+    transform: rotate(-2deg) scale(1.05); /* Edgy tilt */
+    box-shadow: 0 10px 0px rgba(0,0,0,1);
     z-index: 10;
   }
   
-  .features-container {
-    display: flex;
-    justify-content: space-around;
-    background-color: var(--color-white);
-    padding: 3rem;
-    border-radius: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-  }
-  
-  .feature-item {
-    text-align: center;
-    max-width: 250px;
-  }
-  
-  .feature-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background-color: var(--color-primary);
-    color: var(--color-text);
-    margin-bottom: 1.5rem;
-    transition: transform 0.3s ease;
-  }
-  
-  .feature-item:hover .feature-icon {
-    transform: translateY(-5px);
-  }
-  
-  .feature-item h3 {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .feature-item p {
-    font-size: 0.95rem;
-    color: rgba(43, 43, 43, 0.7);
+  .brands-marquee {
+    width: 100vw;
+    position: relative;
+    overflow: hidden;
   }
 
-  /* Courses Section */
-  .courses {
-    position: relative;
-    background-color: var(--color-secondary);
-    padding: 2rem 0;
-    margin-top: 2rem;
+  .brands-track {
+    display: flex;
+    align-items: center;
+    gap: 6rem;
+    width: max-content;
+    animation: marquee 20s linear infinite;
   }
   
-  .curved-top {
-    position: absolute;
-    top: -50px;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    background-color: var(--color-secondary);
-    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  .brands-track:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
   
-  .curved-bottom {
-    position: absolute;
-    bottom: -50px;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    background-color: var(--color-secondary);
-    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  .brand {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--color-dark);
+    text-transform: uppercase;
+    font-family: var(--font-heading);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
   }
   
-  .courses-container {
-    max-width: 1600px; /* Increased from default 1200px container */
-    margin: 0 auto;
-    padding: 0 2rem;
+  .brand::after {
+    content: '✦';
+    font-size: 2rem;
+    color: var(--color-white);
+    transition: color 0.3s ease;
   }
   
-  .courses-content {
-    position: relative;
-    z-index: 2;
+  .brand:hover {
+    color: var(--color-white);
+    transform: scale(1.1) rotate(2deg);
+    cursor: pointer;
   }
   
-  .section-header {
-    text-align: center;
-    margin-bottom: 4rem;
-    color: var(--color-text);
+  .brand:hover::after {
+    color: var(--color-dark);
   }
-  
-  .section-header h2 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-  }
-  
-  /* ── Courses Grid ── */
+
+  /* Courses Grid */
   .courses-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 4rem;
   }
-
+  
   .course-card {
-    background: var(--color-white);
     border-radius: 30px;
-    padding: 0;
-    overflow: hidden;
-    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.05));
-    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.5s ease;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-  }
-
-  .course-card:hover {
-    transform: translateY(-12px);
-    filter: drop-shadow(0 25px 40px rgba(0,0,0,0.12));
-    z-index: 2;
-  }
-
-  /* ── Visual Stack Area ── */
-  .card-visual {
-    position: relative;
-    height: 240px;
-    background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
-    border-radius: 30px 30px 0 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: all 0.5s ease;
-    overflow: hidden;
-  }
-  
-  .course-card:nth-child(2) .card-visual {
-    background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
-  }
-
-  .course-card:nth-child(3) .card-visual {
-    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
-  }
-
-  .course-card:nth-child(4) .card-visual {
-    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-  }
-
-  .course-card:hover .card-visual {
-    height: 260px;
-  }
-
-  /* Light streak background effect */
-  .streak {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.6) 0%, transparent 60%);
-    opacity: 0.8;
-  }
-
-  /* Mini tile stack */
-  .tile-stack {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  
-  .course-card:hover .tile-stack {
-    transform: scale(1.1) translateY(-10px);
-  }
-
-  .mini-tile {
-    position: absolute;
-    width: 90px;
-    background: rgba(255,255,255,0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.8);
-    border-radius: 20px;
-    padding: 1rem 0.6rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
-    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    transform-origin: bottom center;
-  }
-  
-  .mini-tile span { 
-    font-size: 2.2rem; 
-    line-height: 1; 
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15)); 
-  }
-  
-  .mini-tile small {
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: var(--color-text);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  
-  /* Stacked positions & tilts */
-  .t3 { bottom: 0; left: 15px; transform: rotate(-12deg) translateY(10px) scale(0.9); z-index: 1; opacity: 0.7; }
-  .t2 { bottom: 10px; left: 15px; transform: rotate(-4deg) translateY(5px) scale(0.95); z-index: 2; opacity: 0.85; }
-  .t1 { bottom: 20px; left: 15px; transform: rotate(4deg); z-index: 3; opacity: 1; box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
-
-  /* On hover — dynamic fan out */
-  .course-card:hover .t3 { transform: rotate(-25deg) translate(-25px, 15px) scale(0.95); opacity: 1; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-  .course-card:hover .t2 { transform: rotate(-8deg) translate(0px, 0px) scale(1); opacity: 1; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-  .course-card:hover .t1 { transform: rotate(18deg) translate(25px, -15px) scale(1.1); opacity: 1; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-
-  /* Floating badge over the stack */
-  .floating-badge {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: rgba(255,255,255,0.7);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,1);
-    color: var(--color-text);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 0.5rem 1rem;
-    border-radius: 50px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    z-index: 10;
-    transition: all 0.4s ease;
-  }
-  
-  .course-card:hover .floating-badge {
-    transform: translateY(-5px) scale(1.05);
-    background: rgba(255,255,255,0.9);
-  }
-
-  /* ── Card Body ── */
-  .card-body {
-    padding: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    background: var(--color-white);
-    border-radius: 0 0 30px 30px;
-  }
-  
-  .card-body h3 {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--color-text);
-    margin-bottom: 1rem;
-    line-height: 1.2;
-    letter-spacing: -0.5px;
-  }
-  
-  .card-body p {
-    font-size: 1.05rem;
-    color: rgba(43,43,43,0.7);
-    line-height: 1.6;
-    flex: 1;
-  }
-  
-  .card-divider {
-    border: none;
-    border-top: 1.5px dashed rgba(43,43,43,0.1);
-    margin: 2rem 0;
-  }
-  
-  .card-footer {
+    padding: 3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 0.5rem;
+    box-shadow: 0 5px 0px var(--color-dark);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
   
-  .bonus {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #f59e0b;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  .course-card:hover {
+    background-color: var(--color-neon);
+    color: var(--color-dark);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 0px var(--color-dark);
   }
   
-  .pill-btn {
-    background: var(--color-text);
+  .course-card:hover .highlight-green,
+  .course-card:hover .highlight-white {
+    background-color: var(--color-white);
+    color: var(--color-dark);
+  }
+  
+  .course-card:hover .card-link,
+  .course-card:hover .card-link.light {
+    color: var(--color-dark);
+  }
+  
+  .course-card:hover .icon-circle.white,
+  .course-card:hover .icon-circle.black {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-dark);
+  }
+  
+  .course-card:hover .icon-circle svg {
+    stroke: var(--color-dark);
+  }
+  
+  .card-illustration svg {
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .course-card:hover .card-illustration svg {
+    transform: scale(1.1) rotate(4deg);
+  }
+  
+  .card-light {
+    background-color: var(--color-light-bg);
+    border: 1px solid var(--color-dark);
+  }
+  
+  .card-dark {
+    background-color: var(--color-dark);
     color: var(--color-white);
-    border: none;
-    padding: 0.8rem 1.6rem;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-    text-decoration: none;
-    white-space: nowrap;
-    flex-shrink: 0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   }
   
-  .pill-btn:hover {
-    background: var(--color-secondary);
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    gap: 4rem;
+  }
+  
+  .card-title {
+    font-size: 1.8rem;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+  
+  .highlight-green {
+    background-color: var(--color-neon);
+    padding: 0 0.5rem;
+    border-radius: 6px;
     color: var(--color-text);
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 10px 25px rgba(183, 198, 217, 0.6);
+  }
+  
+  .highlight-white {
+    background-color: var(--color-white);
+    padding: 0 0.5rem;
+    border-radius: 6px;
+    color: var(--color-text);
+  }
+  
+  .card-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  
+  .card-link.light {
+    color: var(--color-white);
+  }
+  
+  .icon-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  .icon-circle.black {
+    background-color: var(--color-dark);
+  }
+  
+  .icon-circle.white {
+    background-color: var(--color-white);
+  }
+
+  /* Dashboard & Attendance Section */
+  .dashboard-section {
+    margin-bottom: 6rem;
+  }
+  
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  
+  .attendance-card {
+    background: var(--color-white);
+    border: 2px solid var(--color-dark);
+    border-radius: 30px;
+    padding: 3rem;
+    box-shadow: 12px 12px 0px var(--color-dark);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .attendance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .attendance-header h3 {
+    font-size: 2.2rem;
+    font-weight: 700;
+  }
+  
+  .pulse-indicator {
+    width: 15px;
+    height: 15px;
+    background-color: var(--color-neon);
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(185, 255, 102, 0.7);
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(185, 255, 102, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(185, 255, 102, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(185, 255, 102, 0); }
+  }
+  
+  .attendance-desc {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    margin-bottom: 2.5rem;
+  }
+  
+  .attendance-form .input-group {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  
+  .attendance-form input, .attendance-form select {
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    font-size: 1.1rem;
+    border: 2px solid var(--color-dark);
+    border-radius: 15px;
+    background: var(--color-light-bg);
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    appearance: none;
+  }
+  
+  .attendance-form input:focus, .attendance-form select:focus {
+    background: var(--color-white);
+    box-shadow: 4px 4px 0px var(--color-neon);
+  }
+  
+  .attendance-form label {
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    color: rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+    pointer-events: none;
+  }
+  
+  .attendance-form input:focus ~ label,
+  .attendance-form input:not(:placeholder-shown) ~ label {
+    top: -10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: var(--color-white);
+    padding: 0 0.5rem;
+    color: var(--color-dark);
+  }
+  
+  .btn-full {
+    width: 100%;
+    padding: 1.2rem;
+    font-size: 1.2rem;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .submit-btn:hover {
+    background-color: var(--color-neon);
+    color: var(--color-dark);
+    border-color: var(--color-neon);
+  }
+  
+  /* Attendance Left Footer */
+  .attendance-footer {
+    margin-top: 2rem;
+  }
+  
+  .divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 2px dashed rgba(0,0,0,0.1);
+  }
+  
+  .divider span {
+    padding: 0 1rem;
+    color: rgba(0,0,0,0.4);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .login-btn {
+    border: 2px solid var(--color-dark);
+    background: transparent;
+    transition: all 0.3s ease;
+    width: 100%;
+    display: inline-block;
+  }
+  
+  .login-btn:hover {
+    background: var(--color-dark);
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  /* Right Side Info Dashboard */
+  .info-dashboard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .dashboard-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%; height: 120%;
+    background: radial-gradient(circle, rgba(185,255,102,0.15) 0%, transparent 70%);
+    z-index: -1;
+    pointer-events: none;
+  }
+  
+  .info-card {
+    background: rgba(25, 26, 35, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 2.5rem;
+    color: var(--color-white);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  }
+  
+  .main-highlight {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .highlight-badge {
+    background: var(--color-neon);
+    color: var(--color-dark);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+  }
+  
+  .live-dot {
+    width: 12px; height: 12px;
+    background: #ff4757;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7);
+    animation: livePulse 2s infinite;
+  }
+  
+  @keyframes livePulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(255, 71, 87, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 71, 87, 0); }
+  }
+  
+  .main-highlight h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .main-highlight p {
+    font-size: 1.05rem;
+    opacity: 0.8;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+  
+  .feature-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+  
+  .pill {
+    background: rgba(255,255,255,0.1);
+    padding: 0.6rem 1.2rem;
+    border-radius: 100px;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  
+  .stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  
+  .mini-stat {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .mini-stat p {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  /* Circular Progress */
+  .circular-progress {
+    position: relative;
+    width: 80px; height: 80px;
+  }
+  .circular-progress svg {
+    width: 100%; height: 100%;
+    transform: rotate(-90deg);
+  }
+  .bg-circle {
+    fill: none;
+    stroke: rgba(255,255,255,0.1);
+    stroke-width: 8;
+  }
+  .progress-circle {
+    fill: none;
+    stroke: var(--color-neon);
+    stroke-width: 8;
+    stroke-dasharray: 251; /* 2 * pi * 40 = 251.2 */
+    stroke-dashoffset: 251;
+    stroke-linecap: round;
+    animation: fillProgress 2s ease-out forwards 0.5s;
+  }
+  @keyframes fillProgress {
+    to { stroke-dashoffset: 5; /* 98% of 251 is ~246, so offset is 5 */ }
+  }
+  .progress-text {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+  
+  /* Mini Chart */
+  .chart-mini {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 80px;
+  }
+  .bar-mini {
+    width: 12px;
+    background: var(--color-neon);
+    border-radius: 4px;
+    animation: barRise 1.5s ease-out forwards;
+    transform-origin: bottom;
+    transform: scaleY(0);
+  }
+  .b1 { height: 40%; animation-delay: 0.1s; }
+  .b2 { height: 60%; animation-delay: 0.2s; }
+  .b3 { height: 85%; animation-delay: 0.3s; }
+  .b4 { height: 100%; animation-delay: 0.4s; }
+  
+  @keyframes barRise {
+    to { transform: scaleY(1); }
+  }
+  
+  /* Floating Animations */
+  .float-anim-1 {
+    animation: float1 6s ease-in-out infinite;
+  }
+  .float-anim-2 {
+    animation: float2 7s ease-in-out infinite;
+  }
+  
+  @keyframes float1 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+
+  /* Stats Section */
+  .stats-container {
+    margin-bottom: 6rem;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    background: var(--color-dark);
+    padding: 3rem;
+    border-radius: 30px;
+    color: var(--color-white);
+  }
+  
+  .stat-card {
+    text-align: center;
+    padding: 1rem;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .stat-card:last-child { border-right: none; }
+  
+  .stat-number {
+    font-size: 3.5rem;
+    color: var(--color-neon);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Journey Section */
+  .journey {
+    margin-bottom: 6rem;
+  }
+  
+  .journey-content {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+  }
+  
+  .journey-text {
+    flex: 1;
+  }
+  
+  .journey-text h3 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .journey-text p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+  
+  .journey-visual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .journey-image-placeholder {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    transition: transform 0.5s ease;
+  }
+  
+  .journey-image-placeholder:hover {
+    transform: translateY(-10px) scale(1.02);
+  }
+  
+  /* Reviews Section */
+  .reviews {
+    margin-bottom: 6rem;
+  }
+  
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  
+  .review-card {
+    background: var(--color-white);
+    border: 2px solid var(--color-dark);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 0px var(--color-dark);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 0px var(--color-dark);
+    background: var(--color-neon);
+  }
+  
+  .review-stars {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .review-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-style: italic;
+    font-weight: 500;
+  }
+  
+  .review-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .author-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--color-dark);
+    color: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+  
+  .author-info h4 {
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+  }
+  
+  .author-info span {
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+
+  /* CTA Section */
+  .cta-box {
+    background-color: var(--color-light-bg);
+    border-radius: 30px;
+    padding: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6rem;
+  }
+  
+  .cta-content {
+    max-width: 450px;
+  }
+  
+  .cta-content h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .cta-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  
+  /* Features Box */
+  .features {
+    margin-bottom: 6rem;
+  }
+  
+  .features-box {
+    background-color: var(--color-dark);
+    border-radius: 30px;
+    padding: 4rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    color: var(--color-white);
+  }
+  
+  .feature-col {
+    padding: 0 2rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .feature-col:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background-color: rgba(255,255,255,0.3);
+  }
+  
+  .feature-col p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  
+  .feature-link {
+    color: var(--color-neon);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
   }
 
   @media (max-width: 992px) {
     .hero {
       flex-direction: column;
       text-align: center;
-      padding-top: 4rem;
     }
-    
     .hero-content {
       max-width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .hero-title {
-      font-size: 3.5rem;
-    }
-
-    .hero-actions {
-      justify-content: center;
-    }
-
-    .hero-visual {
-      width: 100%;
-      margin-top: 2rem;
-    }
-
-    .glass-card {
-      transform: none;
-    }
-
-    .glass-card:hover {
-      transform: translateY(-5px);
-    }
-    
-    .features-container {
-      flex-direction: column;
-      gap: 2rem;
-      align-items: center;
-    }
-    .courses-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.2rem;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .hero-title {
-      font-size: 2.8rem;
-    }
-    .hero-stats {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-    }
-    .divider {
-      display: none;
-    }
-    .stat-item {
-      padding: 0.5rem 1rem;
-    }
-    .floating-element {
-      display: none;
     }
     .courses-grid {
       grid-template-columns: 1fr;
     }
-    .card-visual { height: 160px; }
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+    }
+    .stats-row {
+      grid-template-columns: 1fr;
+    }
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      padding: 2rem;
+      gap: 2rem 0;
+    }
+    .stat-card {
+      border-right: none;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 1.5rem 0;
+    }
+    .stat-card:nth-child(3), .stat-card:nth-child(4) {
+      border-bottom: none;
+    }
+    .journey-content {
+      flex-direction: column;
+    }
+    .reviews-grid {
+      grid-template-columns: 1fr;
+    }
+    .cta-box {
+      flex-direction: column;
+      text-align: center;
+      gap: 2rem;
+    }
+    .features-box {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      padding: 3rem 2rem;
+    }
+    .feature-col {
+      padding: 0;
+    }
+    .feature-col:not(:last-child)::after {
+      width: 100%;
+      height: 1px;
+      right: auto;
+      bottom: -1.5rem;
+      top: auto;
+    }
   }
 </style>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const canvas = document.getElementById('scroll-animation-canvas') as HTMLCanvasElement;
-    if (!canvas) return;
-    
-    const context = canvas.getContext('2d');
-    const frameCount = 300;
-    
-    const currentFrame = (index: number) => (
-      `/bg-animation/ezgif-frame-${index.toString().padStart(3, '0')}.jpg`
-    );
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-    const images: HTMLImageElement[] = [];
-    const imageObj = new Image();
-    imageObj.src = currentFrame(1);
-    
-    imageObj.onload = () => {
-      canvas.width = imageObj.naturalWidth || 1280;
-      canvas.height = imageObj.naturalHeight || 720;
-      context?.drawImage(imageObj, 0, 0);
-    }
+  gsap.registerPlugin(ScrollTrigger);
 
-    // Preload all frames for smooth playback
-    const preloadImages = () => {
-      for (let i = 1; i <= frameCount; i++) {
-        images[i] = new Image();
-        images[i].src = currentFrame(i);
-      }
-    };
-    preloadImages();
+  // Hero Animations
+  const tl = gsap.timeline();
+  
+  tl.from('.hero-text', {
+    y: 50,
+    opacity: 0,
+    duration: 1,
+    stagger: 0.2,
+    ease: 'power3.out',
+    delay: 0.5
+  })
+  .from('.hero-visual svg', {
+    x: 50,
+    opacity: 0,
+    duration: 1,
+    ease: 'power3.out',
+    rotation: 5
+  }, "-=0.8");
 
-    let ticking = false;
+  // Continuous SVG Animations
+  gsap.to('.hero-megaphone', {
+    y: -15,
+    duration: 2,
+    yoyo: true,
+    repeat: -1,
+    ease: 'sine.inOut'
+  });
 
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          updateAnimation();
-          ticking = false;
-        });
-        ticking = true;
-      }
+  gsap.to('.hero-ring', {
+    rotation: 360,
+    transformOrigin: "center center",
+    duration: 20,
+    repeat: -1,
+    ease: "none"
+  });
+
+  gsap.to('.hero-shapes circle', {
+    scale: 1.2,
+    duration: 1.5,
+    yoyo: true,
+    repeat: -1,
+    stagger: 0.3,
+    ease: 'sine.inOut',
+    transformOrigin: "center center"
+  });
+
+  // ScrollReveal Animations
+  const revealElements = document.querySelectorAll('.gsap-reveal');
+  revealElements.forEach((el) => {
+    gsap.from(el, {
+      scrollTrigger: {
+        trigger: el,
+        start: "top 85%", // when top of element hits 85% of viewport
+        toggleActions: "play none none reverse"
+      },
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out"
+    });
+  });
+
+  // Magnetic Button Effect
+  const magneticElements = document.querySelectorAll('.magnetic, .magnetic-light');
+  
+  magneticElements.forEach((el) => {
+    el.addEventListener('mousemove', (e) => {
+      // Fix types by casting Event to MouseEvent
+      const mouseEvent = e as MouseEvent;
+      const rect = el.getBoundingClientRect();
+      const x = mouseEvent.clientX - rect.left - rect.width / 2;
+      const y = mouseEvent.clientY - rect.top - rect.height / 2;
+      
+      gsap.to(el, {
+        x: x * 0.3, // magnetic strength
+        y: y * 0.3,
+        duration: 0.4,
+        ease: 'power2.out'
+      });
     });
 
-    function updateAnimation() {
-      const scrollTop = window.scrollY;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      
-      // Calculate scroll fraction, cap between 0 and 1
-      const scrollFraction = Math.max(0, Math.min(1, scrollTop / maxScroll));
-      
-      // Map fraction to frame index (1 to 300)
-      const frameIndex = Math.min(
-        frameCount,
-        Math.floor(scrollFraction * frameCount) + 1
-      );
-      
-      if (images[frameIndex] && images[frameIndex].complete) {
-        context?.drawImage(images[frameIndex], 0, 0);
-      }
-    }
+    el.addEventListener('mouseleave', () => {
+      gsap.to(el, {
+        x: 0,
+        y: 0,
+        duration: 0.7,
+        ease: 'elastic.out(1, 0.3)'
+      });
+    });
   });
 </script>

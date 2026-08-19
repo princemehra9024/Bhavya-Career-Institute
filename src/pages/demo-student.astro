@@ -1,8 +1,8 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import DashboardLayout from '../layouts/DashboardLayout.astro';
 ---
 
-<Layout title="Student Dashboard Demo | Bhavya Career Institute">
+<DashboardLayout title="Student Dashboard Demo | Bhavya Career Institute">
   <div class="demo-banner">
     🎓 DEMO MODE — Student View &nbsp;|&nbsp; <a href="/demo-admin">Switch to Admin Demo →</a>
   </div>
@@ -139,30 +139,32 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
   </div>
-</Layout>
+</DashboardLayout>
 
-<style>
   .demo-banner {
-    background: linear-gradient(90deg, #2B2B2B, #4A5568);
-    color: white;
+    background: var(--color-dark);
+    color: var(--color-white);
     text-align: center;
     padding: 0.75rem 1rem;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
+    font-family: var(--font-body);
   }
   .demo-banner a {
-    color: var(--color-secondary);
+    color: var(--color-neon);
     font-weight: 700;
   }
 
   .dashboard-wrapper {
     min-height: 100vh;
     padding-bottom: 2rem;
+    background-color: var(--color-light-bg);
   }
 
   .dashboard-container {
     padding: 2rem;
     max-width: 960px;
+    margin: 0 auto;
   }
 
   /* Header */
@@ -173,8 +175,9 @@ import Layout from '../layouts/Layout.astro';
     background: var(--color-white);
     padding: 2rem 2.5rem;
     border-radius: 24px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
-    margin-bottom: 1.5rem;
+    border: 2px solid var(--color-dark);
+    box-shadow: 0 8px 0px var(--color-dark);
+    margin-bottom: 2rem;
     position: relative;
     overflow: hidden;
   }
@@ -182,48 +185,68 @@ import Layout from '../layouts/Layout.astro';
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--color-secondary), #4A5568, var(--color-secondary));
+    height: 6px;
+    background: var(--color-neon);
+    border-bottom: 2px solid var(--color-dark);
   }
   .greeting {
-    font-size: 0.9rem;
-    color: rgba(43,43,43,0.6);
+    font-size: 1rem;
+    color: var(--color-dark);
+    font-weight: 600;
     margin-bottom: 0.3rem;
   }
   .dash-header h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
     margin-bottom: 0.3rem;
+    font-weight: 700;
+    color: var(--color-dark);
   }
   .name-gradient {
-    background: linear-gradient(135deg, #2B2B2B, var(--color-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--color-dark);
+    background: var(--color-neon);
+    padding: 0 0.5rem;
+    border-radius: 8px;
+    border: 2px solid var(--color-dark);
   }
   .dash-subtitle {
     font-size: 0.9rem;
-    color: rgba(43,43,43,0.55);
+    color: var(--color-dark);
+    font-weight: 500;
   }
   .dash-header-right {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
   }
   .avatar-ring {
-    width: 52px;
-    height: 52px;
-    background: linear-gradient(135deg, var(--color-secondary), #4A5568);
-    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    background: var(--color-white);
+    border: 2px solid var(--color-dark);
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--color-dark);
     font-weight: 700;
-    font-size: 1.1rem;
-    box-shadow: 0 4px 12px rgba(183, 198, 217, 0.4);
+    font-size: 1.3rem;
+    box-shadow: 0 4px 0px var(--color-dark);
   }
   .btn-sm {
-    padding: 0.5rem 1.2rem;
-    font-size: 0.85rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: var(--color-white);
+    border: 2px solid var(--color-dark);
+    border-radius: 50px;
+    cursor: none;
+    box-shadow: 0 4px 0px var(--color-dark);
+    transition: all 0.3s;
+  }
+  .btn-sm:hover {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0px var(--color-dark);
+    background: var(--color-light-bg);
   }
 
   /* Course Banner */
@@ -231,97 +254,106 @@ import Layout from '../layouts/Layout.astro';
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(135deg, #2B2B2B 0%, #3d4654 100%);
-    color: white;
+    background: var(--color-neon);
+    color: var(--color-dark);
     padding: 1.5rem 2rem;
     border-radius: 20px;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 8px 24px rgba(43,43,43,0.15);
+    margin-bottom: 2rem;
+    border: 2px solid var(--color-dark);
+    box-shadow: 0 8px 0px var(--color-dark);
     transition: transform 0.3s ease;
   }
-  .course-banner:hover { transform: translateY(-2px); }
+  .course-banner:hover { transform: translateY(-4px); box-shadow: 0 12px 0px var(--color-dark); }
   .course-banner-left {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.2rem;
   }
   .course-icon {
-    font-size: 2rem;
-    background: rgba(255,255,255,0.15);
+    font-size: 2.2rem;
+    background: var(--color-white);
     padding: 0.6rem;
-    border-radius: 14px;
+    border-radius: 16px;
+    border: 2px solid var(--color-dark);
   }
   .course-label {
-    font-size: 0.8rem;
-    opacity: 0.7;
+    font-size: 0.85rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 0.2rem;
   }
   .course-banner h3 {
-    font-size: 1.3rem;
-    font-family: var(--font-body);
-    font-weight: 600;
+    font-size: 1.6rem;
+    font-family: var(--font-heading);
+    font-weight: 800;
   }
   .course-badge {
-    background: rgba(76, 175, 80, 0.2);
-    color: #81c784;
-    padding: 0.4rem 1.2rem;
+    background: var(--color-white);
+    color: var(--color-dark);
+    padding: 0.5rem 1.5rem;
     border-radius: 50px;
-    font-size: 0.82rem;
-    font-weight: 700;
+    font-size: 0.9rem;
+    font-weight: 800;
     letter-spacing: 0.5px;
-    border: 1px solid rgba(76, 175, 80, 0.3);
+    border: 2px solid var(--color-dark);
   }
 
   /* Stats Grid */
   .stats-grid {
     display: grid;
     grid-template-columns: 1.2fr 1fr 1fr 1fr;
-    gap: 1.2rem;
-    margin-bottom: 1.5rem;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
   }
   .stat-card {
     background: var(--color-white);
     padding: 1.5rem;
     border-radius: 20px;
     text-align: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid var(--color-dark);
+    box-shadow: 0 6px 0px var(--color-dark);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+    cursor: none;
   }
   .stat-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    transform: translateY(-8px);
+    box-shadow: 0 14px 0px var(--color-dark);
+    background: var(--color-neon);
   }
   .stat-icon-wrap {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
+    width: 54px;
+    height: 54px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
+    border: 2px solid var(--color-dark);
+    background: var(--color-white);
+    color: var(--color-dark);
   }
-  .stat-icon-wrap.green { background: #e8f5e9; color: #2e7d32; }
-  .stat-icon-wrap.red { background: #ffebee; color: #c62828; }
-  .stat-icon-wrap.blue { background: #e3f2fd; color: #1565c0; }
+  .stat-card:hover .stat-icon-wrap {
+    background: var(--color-dark);
+    color: var(--color-white);
+  }
   .stat-value {
-    font-size: 2.2rem;
-    font-weight: 700;
+    font-size: 2.5rem;
+    font-weight: 800;
     font-family: var(--font-heading);
-    color: var(--color-text);
+    color: var(--color-dark);
     line-height: 1;
   }
   .stat-label {
-    font-size: 0.78rem;
-    color: rgba(43,43,43,0.55);
+    font-size: 0.85rem;
+    color: var(--color-dark);
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-weight: 500;
+    font-weight: 700;
   }
 
   /* Progress Ring */
@@ -333,8 +365,8 @@ import Layout from '../layouts/Layout.astro';
   }
   .ring-container {
     position: relative;
-    width: 130px;
-    height: 130px;
+    width: 140px;
+    height: 140px;
   }
   .progress-ring {
     width: 100%;
@@ -344,12 +376,14 @@ import Layout from '../layouts/Layout.astro';
   .ring-bg {
     fill: none;
     stroke: var(--color-light-bg);
-    stroke-width: 8;
+    stroke-width: 10;
   }
+  .stat-card:hover .ring-bg { stroke: var(--color-white); opacity: 0.5; }
+  
   .ring-progress {
     fill: none;
-    stroke: var(--color-secondary);
-    stroke-width: 8;
+    stroke: var(--color-dark);
+    stroke-width: 10;
     stroke-linecap: round;
     stroke-dasharray: 263.89;
     stroke-dashoffset: 263.89;
@@ -365,18 +399,19 @@ import Layout from '../layouts/Layout.astro';
   .ring-value {
     display: block;
     font-size: 1.8rem;
-    font-weight: 700;
+    font-weight: 800;
     font-family: var(--font-heading);
-    color: var(--color-text);
+    color: var(--color-dark);
     line-height: 1;
   }
   .ring-label {
     display: block;
-    font-size: 0.7rem;
-    color: rgba(43,43,43,0.55);
+    font-size: 0.75rem;
+    color: var(--color-dark);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-top: 0.2rem;
+    font-weight: 700;
   }
 
   /* Submit Attendance */
@@ -387,89 +422,94 @@ import Layout from '../layouts/Layout.astro';
     background: var(--color-white);
     padding: 1.5rem 2rem;
     border-radius: 20px;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-    border-left: 4px solid var(--color-secondary);
+    margin-bottom: 2rem;
+    border: 2px solid var(--color-dark);
+    box-shadow: 0 6px 0px var(--color-dark);
     transition: transform 0.3s ease;
   }
-  .submit-attendance-card:hover { transform: translateY(-2px); }
+  .submit-attendance-card:hover { transform: translateY(-4px); box-shadow: 0 10px 0px var(--color-dark);}
   .submit-left {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.2rem;
   }
   .submit-icon {
-    font-size: 1.8rem;
-    background: var(--color-light-bg);
-    padding: 0.6rem;
-    border-radius: 12px;
+    font-size: 2rem;
+    background: var(--color-neon);
+    padding: 0.8rem;
+    border-radius: 16px;
+    border: 2px solid var(--color-dark);
   }
   .submit-left h3 {
-    font-size: 1.1rem;
-    font-family: var(--font-body);
-    font-weight: 600;
+    font-size: 1.3rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
     margin-bottom: 0.2rem;
   }
   .submit-left p {
-    font-size: 0.85rem;
-    color: rgba(43,43,43,0.6);
+    font-size: 0.95rem;
+    color: var(--color-dark);
+    font-weight: 500;
   }
   .submit-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: #4CAF50;
-    color: white;
-    padding: 0.7rem 1.5rem;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 0.9rem;
+    background: var(--color-dark);
+    color: var(--color-neon);
+    padding: 1rem 1.8rem;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 1rem;
     white-space: nowrap;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+    border: 2px solid var(--color-dark);
+    cursor: none;
   }
   .submit-btn:hover {
-    background: #43A047;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+    box-shadow: 0 4px 0px var(--color-neon);
   }
   .submit-btn:disabled {
     cursor: not-allowed;
     transform: none;
   }
   .submit-btn.submitted {
-    background: #e8f5e9;
-    color: #2e7d32;
+    background: var(--color-neon);
+    color: var(--color-dark);
     box-shadow: none;
   }
 
   /* Attendance Section */
   .attendance-section {
-    margin-top: 0.5rem;
+    margin-top: 1rem;
   }
   .section-header-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
   .section-header-row h2 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
   }
   .month-chip {
     background: var(--color-white);
-    padding: 0.4rem 1.2rem;
+    padding: 0.5rem 1.5rem;
     border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: rgba(43,43,43,0.7);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    border: 2px solid var(--color-dark);
+    box-shadow: 0 4px 0px var(--color-dark);
   }
   .attendance-list-card {
     background: var(--color-white);
     border-radius: 20px;
+    border: 2px solid var(--color-dark);
+    box-shadow: 0 8px 0px var(--color-dark);
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
   }
   .att-list {
     list-style: none;
@@ -480,52 +520,64 @@ import Layout from '../layouts/Layout.astro';
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.1rem 2rem;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
+    padding: 1.2rem 2rem;
+    border-bottom: 2px solid var(--color-dark);
     transition: background 0.2s ease;
   }
   .att-item:last-child { border-bottom: none; }
-  .att-item:hover { background: var(--color-light-bg); }
+  .att-item:hover { background: var(--color-neon); }
   .att-left {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.2rem;
   }
   .att-day-num {
-    width: 42px;
-    height: 42px;
-    background: var(--color-light-bg);
+    width: 48px;
+    height: 48px;
+    background: var(--color-white);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
-    font-size: 1rem;
-    color: var(--color-text);
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--color-dark);
+    border: 2px solid var(--color-dark);
   }
   .att-day-info strong {
     display: block;
-    font-size: 0.95rem;
-    margin-bottom: 0.1rem;
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+    font-weight: 700;
   }
   .att-day-info span {
-    font-size: 0.8rem;
-    color: rgba(43,43,43,0.55);
+    font-size: 0.9rem;
+    color: var(--color-dark);
+    font-weight: 500;
   }
   .att-badge {
-    padding: 0.4rem 1rem;
+    padding: 0.5rem 1.2rem;
     border-radius: 50px;
-    font-size: 0.78rem;
-    font-weight: 700;
+    font-size: 0.85rem;
+    font-weight: 800;
     letter-spacing: 0.5px;
+    border: 2px solid var(--color-dark);
   }
   .badge-present {
-    background: #e8f5e9;
-    color: #2e7d32;
+    background: var(--color-white);
+    color: var(--color-dark);
+  }
+  .att-item:hover .badge-present {
+    background: var(--color-dark);
+    color: var(--color-neon);
   }
   .badge-absent {
-    background: #ffebee;
-    color: #c62828;
+    background: var(--color-dark);
+    color: var(--color-white);
+  }
+  .att-item:hover .badge-absent {
+    background: var(--color-white);
+    color: var(--color-dark);
   }
 
   /* Responsive */

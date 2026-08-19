@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import loopVideo from '../assets/Create_a_short_seamless_loopin.mp4';
 
@@ -22,10 +23,17 @@ const { title } = Astro.props;
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <ClientRouter />
+    
+    <!-- GSAP & Lenis Scripts for Animation (loaded before body closes for perf, but CDN links here if needed) -->
   </head>
   <body>
-    <header class="header fade-up">
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="custom-cursor"></div>
+
+    <header class="header">
       <div class="container header-container">
         <a href="/" class="logo">
           <span class="logo-icon">🎓</span>
@@ -36,14 +44,17 @@ const { title } = Astro.props;
         </a>
         <nav class="nav">
           <ul>
-            <li><a href="/#about">About</a></li>
-            <li><a href="/#courses">Courses</a></li>
-            <li><a href="/#contact">Contact</a></li>
+            <li><a href="/#about" class="nav-link">About us</a></li>
+            <li><a href="/#courses" class="nav-link">Services</a></li>
+            <li><a href="/#use-cases" class="nav-link">Use Cases</a></li>
+            <li><a href="/#pricing" class="nav-link">Pricing</a></li>
+            <li><a href="/#blog" class="nav-link">Blog</a></li>
           </ul>
         </nav>
         <div class="auth-buttons">
-          <a href="/login" class="nav-link">Log In</a>
-          <a href="/signup" class="btn">Enroll Now</a>
+          <a href="/student" class="btn highlight-btn">
+            <span class="btn-icon">👨‍🎓</span> Student Panel
+          </a>
         </div>
         <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
           <span></span><span></span><span></span>
@@ -64,8 +75,15 @@ const { title } = Astro.props;
             <div class="footer-slogan">Master the digital world</div>
           </div>
 
-          <!-- 5 Column Grid (including creative space) -->
+          <!-- Cleaner 4 Column Grid -->
           <div class="footer-grid">
+            <div class="footer-col brand-col">
+              <div class="creative-space-video">
+                <video src={loopVideo} autoplay loop muted playsinline class="footer-video"></video>
+              </div>
+              <p class="brand-desc">Empowering the next generation of digital professionals with practical skills.</p>
+            </div>
+
             <div class="footer-col">
               <h5>Contact</h5>
               <p>3-N-25 Mahaveer Nagar Extn.<br>Near Ganesh Ji Mandir, Kota</p>
@@ -83,27 +101,18 @@ const { title } = Astro.props;
               </ul>
             </div>
             
-            <div class="footer-col">
-              <h5>Follow Us</h5>
-              <ul>
-                <li><a href="#">Instagram</a></li>
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">LinkedIn</a></li>
-              </ul>
-            </div>
-            
             <div class="footer-col newsletter-col">
-              <h5>Newsletter</h5>
+              <h5>Newsletter & Social</h5>
               <p>Sign up for latest updates.</p>
               <form class="newsletter-form" onsubmit="event.preventDefault();">
                 <input type="email" placeholder="Email" required />
                 <button type="submit" aria-label="Subscribe">→</button>
               </form>
-            </div>
-
-            <!-- Empty space for creativity -->
-            <div class="footer-col creative-space-video">
-              <video src={loopVideo} autoplay loop muted playsinline class="footer-video"></video>
+              <div class="social-links mt-4">
+                <a href="#" class="social-btn" aria-label="Instagram">IG</a>
+                <a href="#" class="social-btn" aria-label="Facebook">FB</a>
+                <a href="#" class="social-btn" aria-label="LinkedIn">LI</a>
+              </div>
             </div>
           </div>
 
@@ -119,30 +128,104 @@ const { title } = Astro.props;
     </footer>
 
     <script>
-      // Intersection Observer for fade-up animations
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
+      import gsap from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+      import Lenis from 'lenis';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // --- Lenis Smooth Scrolling ---
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutQuart
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+        infinite: false,
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+
+      // Integrate Lenis with GSAP ScrollTrigger
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time)=>{
+        lenis.raf(time * 1000);
+      });
+      gsap.ticker.lagSmoothing(0, 0);
+
+
+      // --- Custom Cursor ---
+      const initAnimations = () => {
+        const cursor = document.getElementById('custom-cursor');
+        const interactiveElements = document.querySelectorAll('a, button, input, .course-card');
+
+        if (window.matchMedia("(pointer: fine)").matches && cursor) {
+          // Move cursor
+          window.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+              x: e.clientX,
+              y: e.clientY,
+              duration: 0.1,
+              ease: 'power2.out'
+            });
+          });
+
+          // Hover states
+          interactiveElements.forEach((el) => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+          });
+        } else {
+          if(cursor) cursor.style.display = 'none'; // hide on mobile
+        }
+
+        // --- Navbar Animation on Load ---
+        gsap.from('.header .logo', {
+          y: -50,
+          opacity: 0,
+          duration: 1,
+          ease: 'power3.out',
+          delay: 0.2
         });
-      }, {
-        threshold: 0.1
-      });
 
-      document.querySelectorAll('.fade-up').forEach((el) => {
-        observer.observe(el);
-      });
+        gsap.from('.nav ul li', {
+          y: -30,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: 'power3.out',
+          delay: 0.3
+        });
 
-      // Mobile menu toggle
-      const menuBtn = document.getElementById('mobile-menu-btn');
-      const nav = document.querySelector('.nav');
-      const authBtns = document.querySelector('.auth-buttons');
-      menuBtn?.addEventListener('click', () => {
-        menuBtn.classList.toggle('active');
-        nav?.classList.toggle('mobile-open');
-        authBtns?.classList.toggle('mobile-open');
-      });
+        gsap.from('.auth-buttons .btn', {
+          x: 30,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          delay: 0.6
+        });
+
+        // --- Mobile menu toggle (existing) ---
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const nav = document.querySelector('.nav');
+        const authBtns = document.querySelector('.auth-buttons');
+        menuBtn?.addEventListener('click', () => {
+          menuBtn.classList.toggle('active');
+          nav?.classList.toggle('mobile-open');
+          authBtns?.classList.toggle('mobile-open');
+        });
+      };
+
+      // Run on initial load and after view transitions
+      initAnimations();
+      document.addEventListener('astro:after-swap', initAnimations);
     </script>
   </body>
 </html>
@@ -150,20 +233,32 @@ const { title } = Astro.props;
 <style>
   /* Header */
   .header {
-    padding: 1rem 0;
+    padding: 0.8rem 1.5rem;
     position: sticky;
-    top: 0;
+    top: 1rem; /* Floating */
     z-index: 100;
-    background-color: rgba(232, 224, 210, 0.92);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,255,255,0.3);
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    width: 98%;
+    max-width: 1400px;
+    margin: 1rem auto; /* Center floating */
+    border-radius: 100px; /* Pill shape */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0,0,0,0.05); /* Depth */
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  .header:hover {
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12), 0 2px 5px rgba(0,0,0,0.05);
+    transform: translateY(-2px);
   }
   
   .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
   }
   
   .logo {
@@ -184,14 +279,14 @@ const { title } = Astro.props;
 
   .logo-text {
     font-family: var(--font-heading);
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--color-text);
     line-height: 1.2;
   }
 
   .logo-tagline {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: rgba(43,43,43,0.6);
     letter-spacing: 0.5px;
     text-transform: uppercase;
@@ -200,32 +295,95 @@ const { title } = Astro.props;
   
   .nav ul {
     display: flex;
-    gap: 2rem;
+    gap: 0.5rem;
   }
   
-  .nav a {
-    font-weight: 500;
-    transition: color 0.3s ease;
-    font-size: 0.95rem;
+  .nav-link {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--color-dark);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 100px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+    white-space: nowrap;
   }
   
-  .nav a:hover {
-    color: var(--color-secondary);
+  .nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.05);
+    border-radius: 100px;
+    z-index: -1;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
   
+  .nav-link:hover::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .nav-link:hover {
+    color: var(--color-dark);
+  }
+
   .auth-buttons {
     display: flex;
     align-items: center;
     gap: 1.5rem;
+    flex-shrink: 0;
   }
   
-  .nav-link {
-    font-weight: 500;
-    transition: color 0.3s ease;
+
+
+  /* Highlight Student Panel Button */
+  .highlight-btn {
+    background: linear-gradient(135deg, var(--color-dark) 0%, #333 100%);
+    color: var(--color-neon);
+    border: none;
+    border-radius: 100px;
+    padding: 0.8rem 1.8rem;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
-  
-  .nav-link:hover {
-    color: var(--color-secondary);
+
+  .highlight-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(185, 255, 102, 0.2), transparent);
+    transition: all 0.5s ease;
+  }
+
+  .highlight-btn:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(185, 255, 102, 0.4);
+    color: var(--color-white);
+    background: var(--color-dark);
+  }
+
+  .highlight-btn:hover::before {
+    left: 100%;
+  }
+
+  .btn-icon {
+    font-size: 1.2rem;
   }
 
   /* Mobile menu button */
@@ -253,22 +411,23 @@ const { title } = Astro.props;
   
   /* ── Modern Footer Redesign ── */
   .footer-modern {
-    background-color: var(--color-text); /* Matches theme dark color */
-    padding: 6rem 2rem 4rem; /* Increased padding */
+    background-color: var(--color-dark); /* WizardZ Dark Theme */
+    padding: 6rem 2rem 4rem; 
     margin-top: 4rem;
     position: relative;
     overflow: hidden;
+    color: var(--color-white);
   }
   
   /* Abstract dark background wave/glow */
   .footer-modern::before {
     content: '';
     position: absolute;
-    bottom: -50%;
-    right: -20%;
-    width: 80vw;
-    height: 80vw;
-    background: radial-gradient(circle, rgba(183, 198, 217, 0.1) 0%, transparent 60%);
+    top: -10%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(185, 255, 102, 0.15) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
     z-index: 0;
@@ -283,26 +442,33 @@ const { title } = Astro.props;
   }
   
   .footer-card {
-    background: linear-gradient(135deg, #f4f0e8 0%, #e6dfcf 100%); /* richer, smoother beige */
+    background: var(--color-dark);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 40px;
     padding: 6rem 5rem 4rem;
     display: flex;
     flex-direction: column;
     gap: 5.5rem;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), inset 0 2px 5px rgba(255, 255, 255, 0.8);
+    box-shadow: 0 20px 0px rgba(185, 255, 102, 0.2); /* Neon drop shadow */
     position: relative;
     overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .footer-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 0px rgba(185, 255, 102, 0.4);
   }
 
   /* Decorative glow for impressive look */
   .footer-card::before {
     content: '';
     position: absolute;
-    top: -20%;
+    bottom: -20%;
     left: -10%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 70%);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(185, 255, 102, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
     pointer-events: none;
     z-index: 0;
   }
@@ -325,34 +491,44 @@ const { title } = Astro.props;
   
   .massive-text {
     font-family: var(--font-heading);
-    font-size: clamp(3rem, 11vw, 11rem); /* Resized so it doesn't wrap */
+    font-size: clamp(3rem, 11vw, 11rem); 
     font-weight: 800;
     line-height: 0.8;
     letter-spacing: -0.04em;
-    background: linear-gradient(180deg, var(--color-text) 0%, #4a4a4a 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--color-white);
     margin: 0;
     text-transform: uppercase;
-    text-shadow: 4px 10px 20px rgba(0,0,0,0.05); /* very subtle drop shadow */
+    text-shadow: 4px 4px 0px var(--color-neon); 
+    transition: text-shadow 0.3s ease;
+  }
+  
+  .massive-text:hover {
+    text-shadow: 8px 8px 0px var(--color-neon);
   }
   
   .footer-slogan {
     font-family: var(--font-heading);
     font-size: clamp(1.2rem, 2.5vw, 2.5rem);
-    color: var(--color-text); /* Matched to website theme */
+    color: var(--color-neon); 
     max-width: 350px;
     line-height: 1.2;
     text-align: right;
     font-style: italic;
-    opacity: 0.85;
+    opacity: 1;
   }
   
-  /* 5 Column Grid */
+  /* 4 Column Grid */
   .footer-grid {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1.5fr 1.5fr; /* 5 columns with creative space */
+    grid-template-columns: 1.2fr 1fr 1fr 1.2fr;
     gap: 3rem;
+  }
+
+  .brand-col .brand-desc {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    opacity: 0.7;
+    line-height: 1.6;
   }
   
   /* Creative Space Styles */
@@ -360,19 +536,19 @@ const { title } = Astro.props;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255,255,255,0.3);
-    border: 1px solid rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.2);
     border-radius: 20px;
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
     padding: 1.5rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
   }
   
   .creative-space-video:hover {
     transform: scale(1.03) translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    background: rgba(255,255,255,0.5);
+    box-shadow: 0 10px 30px rgba(185, 255, 102, 0.1);
+    background: rgba(255,255,255,0.1);
+    border-color: var(--color-neon);
   }
 
   .footer-video {
@@ -381,8 +557,8 @@ const { title } = Astro.props;
     height: auto;
     object-fit: contain;
     display: block;
-    mix-blend-mode: multiply; /* Blends the video background seamlessly with the page */
-    filter: contrast(1.1) brightness(0.95); /* Enhances the ink lines */
+    mix-blend-mode: screen; 
+    filter: invert(1) hue-rotate(180deg);
     border-radius: 12px;
   }
   
@@ -393,19 +569,20 @@ const { title } = Astro.props;
   }
   
   .footer-col h5 {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    color: rgba(43, 43, 43, 0.45); /* Dimmed navy */
+    color: var(--color-neon);
     margin-bottom: 1.2rem;
-    font-weight: 800;
+    font-weight: 700;
   }
   
   .footer-col p, .footer-col li {
     font-size: 0.95rem;
-    color: var(--color-text); /* Matched theme */
+    color: var(--color-white); 
     line-height: 1.7;
-    font-weight: 500;
+    font-weight: 400;
+    opacity: 0.8;
   }
   
   .footer-col ul {
@@ -418,16 +595,34 @@ const { title } = Astro.props;
   }
   
   .footer-col a {
-    color: var(--color-text); /* Matched theme */
+    color: var(--color-white); 
     text-decoration: none;
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
+    position: relative;
+    opacity: 0.8;
+  }
+  
+  .footer-col a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--color-neon);
+    transition: width 0.3s ease;
   }
   
   .footer-col a:hover {
-    color: #3b82f6; /* A pop of primary blue on hover */
+    color: var(--color-neon); 
+    opacity: 1;
     transform: translateX(4px);
+  }
+
+  .footer-col a:hover::after {
+    width: 100%;
   }
   
   /* Newsletter Form */
@@ -437,8 +632,8 @@ const { title } = Astro.props;
   
   .newsletter-form {
     display: flex;
-    background: rgba(255,255,255,0.5);
-    border: 1px solid rgba(43, 43, 43, 0.15);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 50px;
     padding: 0.4rem 0.4rem 0.4rem 1.2rem;
     margin-top: auto;
@@ -447,19 +642,19 @@ const { title } = Astro.props;
   }
   
   .newsletter-form:focus-within {
-    background: rgba(255,255,255,0.8);
-    border-color: rgba(43, 43, 43, 0.4);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    background: rgba(255,255,255,0.1);
+    border-color: var(--color-neon);
+    box-shadow: 0 4px 15px rgba(185, 255, 102, 0.1);
   }
   
   .newsletter-form input {
     background: transparent;
     border: none;
     outline: none;
-    color: var(--color-text);
+    color: var(--color-white);
     font-size: 0.95rem;
     flex: 1;
-    font-weight: 500;
+    font-weight: 400;
     font-family: var(--font-body);
   }
   
@@ -468,9 +663,9 @@ const { title } = Astro.props;
   }
   
   .newsletter-form button {
-    background: var(--color-text);
+    background: var(--color-neon);
     border: none;
-    color: var(--color-white);
+    color: var(--color-dark);
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -483,9 +678,38 @@ const { title } = Astro.props;
   }
   
   .newsletter-form button:hover {
-    background: #3b82f6;
+    background: var(--color-white);
     transform: translateX(2px) scale(1.05);
   }
+  
+  .social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .social-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .social-btn:hover {
+    background: var(--color-neon);
+    color: var(--color-dark);
+    border-color: var(--color-neon);
+    transform: translateY(-3px);
+  }
+  .social-btn::after { display: none; }
   
   /* Bottom Bar */
   .footer-bottom-bar {
@@ -494,20 +718,18 @@ const { title } = Astro.props;
     flex-wrap: wrap;
     gap: 1rem;
     padding-top: 2.5rem;
-    border-top: 1px dashed rgba(43, 43, 43, 0.15); /* added subtle line */
+    border-top: 1px solid rgba(255, 255, 255, 0.1); 
     font-size: 0.85rem;
-    color: rgba(43, 43, 43, 0.6);
-    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 400;
   }
   
   @media (max-width: 1400px) {
     .footer-grid {
-      grid-template-columns: 1fr 1fr 1fr 1.5fr; /* Drops the creative space to bottom or resizes */
+      grid-template-columns: 1.5fr 1fr 1fr;
     }
-    .creative-space-video {
+    .newsletter-col {
       grid-column: 1 / -1;
-      max-width: 300px;
-      margin: 0 auto;
     }
   }
 
@@ -531,13 +753,17 @@ const { title } = Astro.props;
       top: 0;
       left: 0;
       right: 0;
-      background: var(--color-primary);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 0 0 30px 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
       z-index: 105;
-      padding: 5rem 2rem 2rem;
+      padding: 6rem 2rem 3rem;
       flex-direction: column;
       align-items: center;
       gap: 1.5rem;
-      animation: slideDown 0.3s ease;
+      animation: slideDown 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .nav.mobile-open ul {
       flex-direction: column;

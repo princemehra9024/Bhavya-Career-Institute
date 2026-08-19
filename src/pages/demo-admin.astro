@@ -1,5 +1,5 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import DashboardLayout from '../layouts/DashboardLayout.astro';
 
 const students = [
   { name: 'Rahul Sharma', email: 'rahul@example.com', course: 'RSCIT', initials: 'RS' },
@@ -11,7 +11,7 @@ const students = [
 ];
 ---
 
-<Layout title="Admin Dashboard Demo | Bhavya Career Institute">
+<DashboardLayout title="Admin Dashboard Demo | Bhavya Career Institute">
   <div class="demo-banner">
     👨‍🏫 DEMO MODE — Admin / Teacher View &nbsp;|&nbsp; <a href="/demo-student">Switch to Student Demo →</a>
   </div>
@@ -111,7 +111,7 @@ const students = [
       </div>
     </div>
   </div>
-</Layout>
+</DashboardLayout>
 
 <script>
   // Set today's date
@@ -167,39 +167,57 @@ const students = [
   };
 </script>
 
-<style>
   .demo-banner {
-    background: linear-gradient(90deg, #1a1a2e, #16213e);
-    color: white;
+    background: var(--color-dark);
+    color: var(--color-white);
     text-align: center;
     padding: 0.75rem 1rem;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
+    font-family: var(--font-body);
   }
-  .demo-banner a { color: #B7C6D9; font-weight: 700; }
+  .demo-banner a { color: var(--color-neon); font-weight: 700; }
 
-  .admin-container { padding: 3rem 2rem 5rem; }
+  .admin-container { 
+    padding: 3rem 2rem 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 
   .admin-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
     background: var(--color-white);
     padding: 2rem 2.5rem;
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    border-radius: 24px;
+    border: 2px solid var(--color-dark);
+    box-shadow: 0 8px 0px var(--color-dark);
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
   }
-  .welcome-label { font-size: 0.9rem; color: rgba(43,43,43,0.6); margin-bottom: 0.3rem; }
-  .admin-header h2 { font-size: 2rem; margin-bottom: 0.3rem; }
-  .subtitle { color: rgba(43,43,43,0.6); font-size: 0.95rem; }
+  .admin-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: var(--color-neon);
+    border-bottom: 2px solid var(--color-dark);
+  }
+  .welcome-label { font-size: 1rem; color: var(--color-dark); font-weight: 600; margin-bottom: 0.3rem; }
+  .admin-header h2 { font-size: 2.2rem; margin-bottom: 0.3rem; font-weight: 700; color: var(--color-dark); }
+  .subtitle { color: var(--color-dark); font-size: 0.95rem; font-weight: 500; }
+  
   .header-right { display: flex; align-items: center; gap: 1.5rem; }
   .avatar-admin {
-    width: 52px; height: 52px;
-    background: linear-gradient(135deg, var(--color-text), #4A5568);
-    border-radius: 50%;
+    width: 60px; height: 60px;
+    background: var(--color-white);
+    border: 2px solid var(--color-dark);
+    border-radius: 16px;
     display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 1.1rem; color: white;
+    font-weight: 700; font-size: 1.3rem; color: var(--color-dark);
+    box-shadow: 0 4px 0px var(--color-dark);
   }
 
   /* Stats */
@@ -213,14 +231,20 @@ const students = [
   .admin-stat {
     background: var(--color-white);
     padding: 1.5rem;
-    border-radius: 16px;
+    border-radius: 20px;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-    transition: transform 0.3s;
+    border: 2px solid var(--color-dark);
+    box-shadow: 0 6px 0px var(--color-dark);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: none;
   }
-  .admin-stat:hover { transform: translateY(-4px); }
-  .stat-val { display: block; font-size: 2.2rem; font-weight: 700; font-family: var(--font-heading); }
-  .stat-lbl { font-size: 0.82rem; color: rgba(43,43,43,0.6); text-transform: uppercase; letter-spacing: 1px; }
+  .admin-stat:hover { 
+    transform: translateY(-8px); 
+    box-shadow: 0 14px 0px var(--color-dark);
+    background: var(--color-neon);
+  }
+  .stat-val { display: block; font-size: 2.5rem; font-weight: 800; font-family: var(--font-heading); color: var(--color-dark); }
+  .stat-lbl { font-size: 0.85rem; color: var(--color-dark); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
 
   /* Grid */
   .admin-grid {
@@ -230,13 +254,13 @@ const students = [
     margin-bottom: 2rem;
   }
   @media(max-width: 900px) { .admin-grid { grid-template-columns: 1fr; } }
-  .full-width { margin-top: 0; }
-
+  
   .admin-card {
     background: var(--color-white);
     padding: 2rem;
     border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    border: 2px solid var(--color-dark);
+    box-shadow: 0 8px 0px var(--color-dark);
   }
   .card-title-row {
     display: flex;
@@ -244,18 +268,20 @@ const students = [
     gap: 1rem;
     margin-bottom: 0.5rem;
   }
-  .card-title-row h3 { font-size: 1.3rem; }
+  .card-title-row h3 { font-size: 1.5rem; font-weight: 700; color: var(--color-dark); }
   .count-badge {
-    background: #e3f2fd; color: #1565c0;
-    padding: 0.2rem 0.7rem; border-radius: 50px;
-    font-size: 0.85rem; font-weight: 700;
+    background: var(--color-neon); color: var(--color-dark);
+    padding: 0.3rem 0.8rem; border-radius: 50px;
+    font-size: 0.9rem; font-weight: 800;
+    border: 2px solid var(--color-dark);
   }
   .today-badge {
-    background: var(--color-light-bg);
-    padding: 0.2rem 0.8rem; border-radius: 50px;
-    font-size: 0.82rem; font-weight: 500;
+    background: var(--color-white); color: var(--color-dark);
+    padding: 0.3rem 0.8rem; border-radius: 50px;
+    font-size: 0.85rem; font-weight: 700;
+    border: 2px solid var(--color-dark);
   }
-  .card-subtitle { color: rgba(43,43,43,0.6); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .card-subtitle { color: var(--color-dark); font-size: 0.95rem; font-weight: 500; margin-bottom: 1.5rem; }
 
   /* Student list */
   .student-list { list-style: none; padding: 0; max-height: 400px; overflow-y: auto;}
@@ -263,59 +289,84 @@ const students = [
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    background: var(--color-light-bg);
-    border-radius: 12px;
-    margin-bottom: 0.8rem;
+    padding: 1.2rem;
+    background: var(--color-white);
+    border: 2px solid var(--color-dark);
+    border-radius: 14px;
+    margin-bottom: 1rem;
     transition: all 0.3s ease;
-    border-left: 4px solid transparent;
+    box-shadow: 0 4px 0px var(--color-dark);
+  }
+  .student-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0px var(--color-dark);
   }
   .student-left { display: flex; align-items: center; gap: 1rem; }
   .s-avatar {
-    width: 44px; height: 44px;
-    background: var(--color-secondary);
-    border-radius: 50%;
+    width: 48px; height: 48px;
+    background: var(--color-neon);
+    border: 2px solid var(--color-dark);
+    border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 0.9rem; color: var(--color-text);
+    font-weight: 800; font-size: 1rem; color: var(--color-dark);
     flex-shrink: 0;
   }
-  .student-info strong { display: block; font-size: 0.95rem; margin-bottom: 0.1rem; }
-  .student-info span { font-size: 0.82rem; color: rgba(43,43,43,0.6); }
+  .student-info strong { display: block; font-size: 1.1rem; margin-bottom: 0.2rem; font-weight: 700; }
+  .student-info span { font-size: 0.9rem; color: var(--color-dark); font-weight: 500; }
   .course-tag {
     display: inline-block;
-    background: rgba(183, 198, 217, 0.3);
-    color: var(--color-text);
-    padding: 0.15rem 0.6rem;
+    background: var(--color-light-bg);
+    color: var(--color-dark);
+    padding: 0.2rem 0.8rem;
     border-radius: 50px;
-    font-size: 0.72rem !important;
-    font-weight: 600;
-    margin-top: 0.3rem;
+    font-size: 0.75rem !important;
+    font-weight: 700;
+    margin-top: 0.4rem;
+    border: 1px solid var(--color-dark);
   }
 
   /* Attendance */
   .attendance-controls { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
   .date-picker {
     flex: 1; padding: 0.75rem 1rem;
-    border: 2px solid rgba(43,43,43,0.1);
-    border-radius: 50px; font-family: var(--font-body);
+    border: 2px solid var(--color-dark);
+    border-radius: 14px; font-family: var(--font-body);
     font-size: 0.95rem; background: var(--color-light-bg);
+    cursor: none;
   }
-  .date-picker:focus { outline: none; border-color: var(--color-secondary); }
+  .date-picker:focus { outline: none; background: var(--color-white); box-shadow: 0 4px 0px var(--color-dark); transform: translateY(-2px); }
 
   .attendance-btns { display: flex; gap: 0.5rem; }
   .mark-btn {
-    border: none; padding: 0.5rem 0.9rem;
-    border-radius: 50px; font-weight: 600;
-    cursor: pointer; transition: all 0.2s;
-    font-size: 0.82rem; font-family: var(--font-body);
+    border: 2px solid var(--color-dark); padding: 0.5rem 0.9rem;
+    border-radius: 10px; font-weight: 700;
+    cursor: none; transition: all 0.2s;
+    font-size: 0.85rem; font-family: var(--font-body);
+    box-shadow: 0 2px 0px var(--color-dark);
   }
-  .present-btn { background: #e8f5e9; color: #2e7d32; }
-  .absent-btn { background: #ffebee; color: #c62828; }
+  .mark-btn:hover { transform: translateY(2px); box-shadow: none; }
+  .present-btn { background: var(--color-white); color: var(--color-dark); }
+  .absent-btn { background: var(--color-white); color: var(--color-dark); }
 
   .save-row {
     margin-top: 1.5rem;
     padding-top: 1.5rem;
-    border-top: 1px solid rgba(0,0,0,0.06);
+    border-top: 2px dashed var(--color-dark);
   }
-  .save-btn { width: 100%; transition: all 0.3s; }
-</style>
+  .save-btn { 
+    width: 100%; 
+    transition: all 0.3s;
+    background: var(--color-dark);
+    color: var(--color-neon);
+    border: 2px solid var(--color-dark);
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 14px;
+    box-shadow: 0 4px 0px var(--color-neon);
+    cursor: none;
+  }
+  .save-btn:hover {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0px var(--color-neon);
+  }
