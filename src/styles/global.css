@@ -7,14 +7,19 @@
   --color-neon: #B9FF66;
   --color-light-bg: #F3F3F3;
   
-  --font-heading: 'Space Grotesk', sans-serif;
-  --font-body: 'Space Grotesk', sans-serif;
+  --font-heading: 'Syne', sans-serif;
+  --font-body: 'Outfit', sans-serif;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+img, svg, video {
+  max-width: 100%;
+  height: auto;
 }
 
 body {
@@ -91,6 +96,12 @@ ul {
   padding: 0 4rem;
 }
 
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.2rem;
+  }
+}
+
 .btn {
   display: inline-flex; /* Changed from inline-block for better alignment */
   align-items: center;
@@ -151,5 +162,10 @@ ul {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  
+  .section-header h2 {
+    font-size: 2.2rem;
   }
 }
