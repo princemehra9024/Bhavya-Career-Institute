@@ -1327,13 +1327,17 @@ import heroImage from '../assets/hero-image.png';
 
   @media (max-width: 768px) {
     .hero {
-      padding: 4rem 1rem 2rem;
+      padding: 3rem 1rem 2rem;
     }
     .hero-content h1 {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
     }
     .hero-content p {
       font-size: 1rem;
+    }
+    .btn {
+      width: 100%;
     }
     .stats-grid {
       grid-template-columns: 1fr;
@@ -1348,16 +1352,44 @@ import heroImage from '../assets/hero-image.png';
       border-bottom: none;
     }
     .course-card {
-      padding: 2rem;
+      padding: 1.5rem;
       flex-direction: column;
       text-align: center;
-      gap: 2rem;
+      gap: 1.5rem;
     }
     .card-content {
       align-items: center;
     }
     .dashboard-section, .stats-container, .journey, .courses, .reviews, .cta, .features {
       margin-bottom: 4rem;
+    }
+    .section-header h2 {
+      font-size: 1.8rem;
+    }
+    .attendance-card {
+      padding: 1.5rem;
+    }
+    .journey-content {
+      gap: 2rem;
+    }
+    .journey-text h3 {
+      font-size: 1.5rem;
+    }
+    .review-card {
+      padding: 1.5rem;
+    }
+    .cta-box {
+      padding: 2rem;
+    }
+    .brand {
+      font-size: 1.5rem;
+      gap: 1.5rem;
+    }
+    .brand::after {
+      font-size: 1.2rem;
+    }
+    .brands-wrapper {
+      margin: 2rem auto 3rem;
     }
   }
 </style>
