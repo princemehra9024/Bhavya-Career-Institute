@@ -3,7 +3,7 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
 ---
 
 <DashboardLayout title="Admin Dashboard | Bhavya Career Institute">
-  <div class="admin-container container fade-up">
+  <div class="admin-container container">
     <!-- Password Overlay -->
     <div id="password-overlay" class="password-overlay hidden">
       <div class="password-card">
@@ -113,279 +113,311 @@ import DashboardLayout from '../layouts/DashboardLayout.astro';
   import { onAuthStateChanged, signOut } from 'firebase/auth';
   import { doc, getDoc, collection, query, where, getDocs, setDoc } from 'firebase/firestore';
 
-  const loadingView = document.getElementById('loading')!;
-  const adminMain = document.getElementById('admin-main')!;
-
-  // Set greeting
-  const hour = new Date().getHours();
-  const greetEl = document.getElementById('admin-greeting')!;
-  if (hour < 12) greetEl.textContent = 'Good morning ☀️';
-  else if (hour < 17) greetEl.textContent = 'Good afternoon 🌤️';
-  else greetEl.textContent = 'Good evening 🌙';
-
-  // Set today's date
-  const datePicker = document.getElementById('attendance-date') as HTMLInputElement;
-  datePicker.valueAsDate = new Date();
-
-  document.getElementById('logout-btn')!.addEventListener('click', () => {
-    window.location.href = '/';
-  });
-
-  // Show password overlay on page load (bypassing Firebase Auth for admin access)
-  loadingView.classList.add('hidden');
-  const pwdOverlay = document.getElementById('password-overlay')!;
-  pwdOverlay.classList.remove('hidden');
-
-  document.getElementById('admin-password-btn')!.addEventListener('click', () => {
-    const pwdInput = (document.getElementById('admin-password-input') as HTMLInputElement).value;
-    if (pwdInput === '9024546041') {
-      pwdOverlay.classList.add('hidden');
-      adminMain.classList.remove('hidden');
-      loadStudentList();
-    } else {
-      alert('Incorrect password');
-    }
-  });
-
-  // Student Details Modal Logic
-  const detailsModal = document.getElementById('student-details-modal')!;
-  const detailsName = document.getElementById('details-name')!;
-  const detailsEmail = document.getElementById('details-email')!;
-  const detailsCourse = document.getElementById('details-course')!;
-  const detailsAttendance = document.getElementById('details-attendance-list')!;
-  
-  document.getElementById('close-details-btn')!.addEventListener('click', () => {
-    detailsModal.classList.add('hidden');
-  });
-
-  async function showStudentDetails(student: any) {
-    detailsName.textContent = student.name || 'Unknown';
-    detailsEmail.textContent = student.email || 'No email';
-    detailsCourse.textContent = student.course || 'No course';
-    detailsAttendance.innerHTML = '<li style="padding: 0.5rem; color: #666;">Loading attendance...</li>';
-    detailsModal.classList.remove('hidden');
-
-    try {
-      const q = query(collection(db, 'attendance'), where('studentId', '==', student.uid));
-      const snap = await getDocs(q);
-      
-      detailsAttendance.innerHTML = '';
-      if (snap.empty) {
-        detailsAttendance.innerHTML = '<li style="padding: 0.5rem; color: #666;">No attendance records found.</li>';
-        return;
-      }
-
-      const records: any[] = [];
-      snap.forEach(d => records.push(d.data()));
-      
-      // Sort by date descending
-      records.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-      records.forEach(r => {
-        const li = document.createElement('li');
-        li.style.padding = '0.7rem 0.5rem';
-        li.style.borderBottom = '1px solid #eee';
-        li.style.display = 'flex';
-        li.style.justifyContent = 'space-between';
-        
-        const dateStr = new Date(r.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
-        const statusColor = r.status === 'present' ? '#4CAF50' : '#f44336';
-        
-        li.innerHTML = `
-          <span>${dateStr}</span>
-          <span style="color: ${statusColor}; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; background: ${r.status === 'present' ? '#e8f5e9' : '#ffebee'}; padding: 0.2rem 0.6rem; border-radius: 50px;">${r.status}</span>
-        `;
-        detailsAttendance.appendChild(li);
-      });
-    } catch (e) {
-      console.error(e);
-      detailsAttendance.innerHTML = '<li style="padding: 0.5rem; color: #f44336;">Failed to load attendance.</li>';
-    }
-  }
-
-  async function loadStudentList() {
-    const listEl = document.getElementById('student-list')!;
-    try {
-      const q = query(collection(db, 'users'), where('role', '==', 'student'));
-      const snapshot = await getDocs(q);
-      
-      listEl.innerHTML = '';
-      
-      const courses = new Set<string>();
-      let count = 0;
-      
-      if (snapshot.empty) {
-        listEl.innerHTML = '<li class="empty-msg">No students enrolled yet.</li>';
-      } else {
-        snapshot.forEach((docSnap) => {
-          const student = docSnap.data();
-          count++;
-          if (student.course) courses.add(student.course);
-          
-          const initials = (student.name || 'S').split(' ').map((w: string) => w[0]).join('').toUpperCase().slice(0, 2);
-          
-          const li = document.createElement('li');
-          li.className = 'student-item';
-          li.style.cursor = 'pointer';
-          li.innerHTML = `
-            <div class="student-left">
-              <div class="s-avatar">${initials}</div>
-              <div class="student-info">
-                <strong>${student.name}</strong>
-                <span>${student.email}</span>
-                <small class="course-tag">${student.course || 'No course'}</small>
-              </div>
-            </div>
-            <div style="color: rgba(43,43,43,0.3); display: flex; align-items: center;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-            </div>
-          `;
-          li.addEventListener('click', () => showStudentDetails(student));
-          listEl.appendChild(li);
-        });
-      }
-      
-      document.getElementById('student-count')!.textContent = String(count);
-      document.getElementById('stat-total')!.textContent = String(count);
-      document.getElementById('stat-courses')!.textContent = String(courses.size);
-      
-    } catch (error: any) {
-      listEl.innerHTML = `<li class="empty-msg">Error loading students: ${error.message}</li>`;
-      console.error('Error loading students:', error);
-    }
-
-    try {
-      // Load today's attendance count
-      const today = new Date().toISOString().split('T')[0];
-      const attQ = query(collection(db, 'attendance'), where('date', '==', today), where('status', '==', 'present'));
-      const attSnap = await getDocs(attQ);
-      document.getElementById('stat-today')!.textContent = String(attSnap.size);
-    } catch (error: any) {
-      console.error('Error loading today attendance count:', error);
-      document.getElementById('stat-today')!.textContent = 'Err';
-    }
-  }
-
-  // Load students for attendance marking
-  const attendanceData: Record<string, string> = {}; // uid -> status
-
-  document.getElementById('load-students-btn')!.addEventListener('click', async () => {
-    const selectedDate = datePicker.value;
-    if (!selectedDate) {
-      alert("Please select a date");
-      return;
-    }
-
-    const listEl = document.getElementById('approved-list')!;
-    const section = document.getElementById('attendance-section')!;
+  document.addEventListener('astro:page-load', () => {
+    const loadingView = document.getElementById('loading');
+    const adminMain = document.getElementById('admin-main');
     
-    try {
-      section.classList.remove('hidden');
-      listEl.innerHTML = '<li class="loading-item">Loading students...</li>';
-      
-      const q = query(collection(db, 'users'), where('role', '==', 'student'));
-      const snapshot = await getDocs(q);
-      
-      listEl.innerHTML = '';
-      
-      if (snapshot.empty) {
-        listEl.innerHTML = '<li class="empty-msg">No students found.</li>';
-      } else {
-        snapshot.forEach((docSnap) => {
-          const student = docSnap.data();
-          const initials = (student.name || 'S').split(' ').map((w: string) => w[0]).join('').toUpperCase().slice(0, 2);
-          
-          const li = document.createElement('li');
-          li.className = 'student-item attendance-item';
-          li.dataset.uid = student.uid;
-          li.innerHTML = `
-            <div class="student-left">
-              <div class="s-avatar">${initials}</div>
-              <div class="student-info">
-                <strong>${student.name}</strong>
-                <span>${student.email}</span>
-              </div>
-            </div>
-            <div class="attendance-actions">
-              <button class="mark-btn present-btn" data-uid="${student.uid}" data-status="present">✓ Present</button>
-              <button class="mark-btn absent-btn" data-uid="${student.uid}" data-status="absent">✗ Absent</button>
-            </div>
-          `;
-          listEl.appendChild(li);
-        });
+    // If we're not on the admin page, do nothing
+    if (!loadingView || !adminMain) return;
+
+    // Set greeting
+    const hour = new Date().getHours();
+    const greetEl = document.getElementById('admin-greeting');
+    if (greetEl) {
+      if (hour < 12) greetEl.textContent = 'Good morning ☀️';
+      else if (hour < 17) greetEl.textContent = 'Good afternoon 🌤️';
+      else greetEl.textContent = 'Good evening 🌙';
+    }
+
+    // Set today's date
+    const datePicker = document.getElementById('attendance-date') as HTMLInputElement;
+    if (datePicker) {
+      datePicker.valueAsDate = new Date();
+    }
+
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        window.location.href = '/';
+      });
+    }
+
+    // Show password overlay on page load (bypassing Firebase Auth for admin access)
+    loadingView.classList.add('hidden');
+    const pwdOverlay = document.getElementById('password-overlay')!;
+    pwdOverlay.classList.remove('hidden');
+
+    const pwdBtn = document.getElementById('admin-password-btn');
+    if (pwdBtn) {
+      pwdBtn.addEventListener('click', () => {
+        const pwdInput = (document.getElementById('admin-password-input') as HTMLInputElement).value;
+        if (pwdInput === '9024546041') {
+          pwdOverlay.classList.add('hidden');
+          adminMain.classList.remove('hidden');
+          loadStudentList();
+        } else {
+          alert('Incorrect password');
+        }
+      });
+    }
+
+    // Student Details Modal Logic
+    const detailsModal = document.getElementById('student-details-modal')!;
+    const detailsName = document.getElementById('details-name')!;
+    const detailsEmail = document.getElementById('details-email')!;
+    const detailsCourse = document.getElementById('details-course')!;
+    const detailsAttendance = document.getElementById('details-attendance-list')!;
+    
+    const closeBtn = document.getElementById('close-details-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        detailsModal.classList.add('hidden');
+      });
+    }
+
+    async function showStudentDetails(student: any) {
+      detailsName.textContent = student.name || 'Unknown';
+      detailsEmail.textContent = student.email || 'No email';
+      detailsCourse.textContent = student.course || 'No course';
+      detailsAttendance.innerHTML = '<li style="padding: 0.5rem; color: #666;">Loading attendance...</li>';
+      detailsModal.classList.remove('hidden');
+
+      try {
+        const q = query(collection(db, 'attendance'), where('studentId', '==', student.uid));
+        const snap = await getDocs(q);
         
-        // Add event listeners
-        document.querySelectorAll('.mark-btn').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            const target = e.target as HTMLButtonElement;
-            const uid = target.dataset.uid!;
-            const status = target.dataset.status!;
-            const item = target.closest('.attendance-item') as HTMLElement;
+        detailsAttendance.innerHTML = '';
+        if (snap.empty) {
+          detailsAttendance.innerHTML = '<li style="padding: 0.5rem; color: #666;">No attendance records found.</li>';
+          return;
+        }
+
+        const records: any[] = [];
+        snap.forEach(d => records.push(d.data()));
+        
+        // Sort by date descending
+        records.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+        records.forEach(r => {
+          const li = document.createElement('li');
+          li.style.padding = '0.7rem 0.5rem';
+          li.style.borderBottom = '1px solid #eee';
+          li.style.display = 'flex';
+          li.style.justifyContent = 'space-between';
+          
+          const dateStr = new Date(r.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+          const statusColor = r.status === 'present' ? '#4CAF50' : '#f44336';
+          
+          li.innerHTML = `
+            <span>${dateStr}</span>
+            <span style="color: ${statusColor}; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; background: ${r.status === 'present' ? '#e8f5e9' : '#ffebee'}; padding: 0.2rem 0.6rem; border-radius: 50px;">${r.status}</span>
+          `;
+          detailsAttendance.appendChild(li);
+        });
+      } catch (e) {
+        console.error(e);
+        detailsAttendance.innerHTML = '<li style="padding: 0.5rem; color: #f44336;">Failed to load attendance.</li>';
+      }
+    }
+
+    async function loadStudentList() {
+      const listEl = document.getElementById('student-list')!;
+      if (!listEl) return;
+      try {
+        const q = query(collection(db, 'users'), where('role', '==', 'student'));
+        const snapshot = await getDocs(q);
+        
+        listEl.innerHTML = '';
+        
+        const courses = new Set<string>();
+        let count = 0;
+        
+        if (snapshot.empty) {
+          listEl.innerHTML = '<li class="empty-msg">No students enrolled yet.</li>';
+        } else {
+          snapshot.forEach((docSnap) => {
+            const student = docSnap.data();
+            count++;
+            if (student.course) courses.add(student.course);
             
-            attendanceData[uid] = status;
+            const initials = (student.name || 'S').split(' ').map((w: string) => w[0]).join('').toUpperCase().slice(0, 2);
             
-            if (status === 'present') {
-              item.style.borderLeft = '4px solid #4CAF50';
-              item.style.background = '#f1f8f1';
-              const absent = item.querySelector('.absent-btn') as HTMLButtonElement;
-              if (absent) { absent.style.opacity = '0.4'; }
-              target.style.background = '#4CAF50';
-              target.style.color = 'white';
-            } else {
-              item.style.borderLeft = '4px solid #f44336';
-              item.style.background = '#fff5f5';
-              const present = item.querySelector('.present-btn') as HTMLButtonElement;
-              if (present) { present.style.opacity = '0.4'; }
-              target.style.background = '#f44336';
-              target.style.color = 'white';
-            }
+            const li = document.createElement('li');
+            li.className = 'student-item';
+            li.style.cursor = 'pointer';
+            li.innerHTML = `
+              <div class="student-left">
+                <div class="s-avatar">${initials}</div>
+                <div class="student-info">
+                  <strong>${student.name}</strong>
+                  <span>${student.email}</span>
+                  <small class="course-tag">${student.course || 'No course'}</small>
+                </div>
+              </div>
+              <div style="color: rgba(43,43,43,0.3); display: flex; align-items: center;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </div>
+            `;
+            li.addEventListener('click', () => showStudentDetails(student));
+            listEl.appendChild(li);
           });
-        });
-      }
-    } catch (error: any) {
-      listEl.innerHTML = `<li class="empty-msg">Error loading students: ${error.message}</li>`;
-      console.error('Error in mark attendance load:', error);
-    }
-  });
+        }
+        
+        const studentCountEl = document.getElementById('student-count');
+        const statTotalEl = document.getElementById('stat-total');
+        const statCoursesEl = document.getElementById('stat-courses');
 
-  // Save all attendance
-  document.getElementById('save-all-btn')!.addEventListener('click', async () => {
-    const selectedDate = datePicker.value;
-    if (!selectedDate) return;
-    
-    const saveBtn = document.getElementById('save-all-btn') as HTMLButtonElement;
-    
-    try {
-      saveBtn.textContent = 'Saving...';
-      saveBtn.disabled = true;
-      
-      const promises = Object.entries(attendanceData).map(([uid, status]) => {
-        const recordId = `${uid}_${selectedDate}`;
-        return setDoc(doc(db, 'attendance', recordId), {
-          studentId: uid,
-          date: selectedDate,
-          status: status,
-          markedAt: new Date().toISOString()
-        });
+        if (studentCountEl) studentCountEl.textContent = String(count);
+        if (statTotalEl) statTotalEl.textContent = String(count);
+        if (statCoursesEl) statCoursesEl.textContent = String(courses.size);
+        
+      } catch (error: any) {
+        listEl.innerHTML = `<li class="empty-msg">Error loading students: ${error.message}</li>`;
+        console.error('Error loading students:', error);
+      }
+
+      try {
+        // Load today's attendance count
+        const today = new Date().toISOString().split('T')[0];
+        const attQ = query(collection(db, 'attendance'), where('date', '==', today), where('status', '==', 'present'));
+        const attSnap = await getDocs(attQ);
+        const statTodayEl = document.getElementById('stat-today');
+        if (statTodayEl) statTodayEl.textContent = String(attSnap.size);
+      } catch (error: any) {
+        console.error('Error loading today attendance count:', error);
+        const statTodayEl = document.getElementById('stat-today');
+        if (statTodayEl) statTodayEl.textContent = 'Err';
+      }
+    }
+
+    // Load students for attendance marking
+    const attendanceData: Record<string, string> = {}; // uid -> status
+
+    const loadStudentsBtn = document.getElementById('load-students-btn');
+    if (loadStudentsBtn) {
+      loadStudentsBtn.addEventListener('click', async () => {
+        const selectedDate = datePicker?.value;
+        if (!selectedDate) {
+          alert("Please select a date");
+          return;
+        }
+
+        const listEl = document.getElementById('approved-list')!;
+        const section = document.getElementById('attendance-section')!;
+        if (!listEl || !section) return;
+
+        try {
+          section.classList.remove('hidden');
+          listEl.innerHTML = '<li class="loading-item">Loading students...</li>';
+          
+          const q = query(collection(db, 'users'), where('role', '==', 'student'));
+          const snapshot = await getDocs(q);
+          
+          listEl.innerHTML = '';
+          
+          if (snapshot.empty) {
+            listEl.innerHTML = '<li class="empty-msg">No students found.</li>';
+          } else {
+            snapshot.forEach((docSnap) => {
+              const student = docSnap.data();
+              const initials = (student.name || 'S').split(' ').map((w: string) => w[0]).join('').toUpperCase().slice(0, 2);
+              
+              const li = document.createElement('li');
+              li.className = 'student-item attendance-item';
+              li.dataset.uid = student.uid;
+              li.innerHTML = `
+                <div class="student-left">
+                  <div class="s-avatar">${initials}</div>
+                  <div class="student-info">
+                    <strong>${student.name}</strong>
+                    <span>${student.email}</span>
+                  </div>
+                </div>
+                <div class="attendance-actions">
+                  <button class="mark-btn present-btn" data-uid="${student.uid}" data-status="present">✓ Present</button>
+                  <button class="mark-btn absent-btn" data-uid="${student.uid}" data-status="absent">✗ Absent</button>
+                </div>
+              `;
+              listEl.appendChild(li);
+            });
+            
+            // Add event listeners
+            document.querySelectorAll('.mark-btn').forEach(btn => {
+              btn.addEventListener('click', (e) => {
+                const target = e.target as HTMLButtonElement;
+                const uid = target.dataset.uid!;
+                const status = target.dataset.status!;
+                const item = target.closest('.attendance-item') as HTMLElement;
+                
+                attendanceData[uid] = status;
+                
+                if (status === 'present') {
+                  item.style.borderLeft = '4px solid #4CAF50';
+                  item.style.background = '#f1f8f1';
+                  const absent = item.querySelector('.absent-btn') as HTMLButtonElement;
+                  if (absent) { absent.style.opacity = '0.4'; }
+                  target.style.background = '#4CAF50';
+                  target.style.color = 'white';
+                } else {
+                  item.style.borderLeft = '4px solid #f44336';
+                  item.style.background = '#fff5f5';
+                  const present = item.querySelector('.present-btn') as HTMLButtonElement;
+                  if (present) { present.style.opacity = '0.4'; }
+                  target.style.background = '#f44336';
+                  target.style.color = 'white';
+                }
+              });
+            });
+          }
+        } catch (error: any) {
+          listEl.innerHTML = `<li class="empty-msg">Error loading students: ${error.message}</li>`;
+          console.error('Error in mark attendance load:', error);
+        }
       });
-      
-      await Promise.all(promises);
-      
-      saveBtn.textContent = '✓ All Attendance Saved!';
-      saveBtn.style.background = '#4CAF50';
-      saveBtn.style.color = 'white';
-      
-      setTimeout(() => {
-        saveBtn.textContent = '💾 Save All Attendance';
-        saveBtn.style.background = '';
-        saveBtn.style.color = '';
-        saveBtn.disabled = false;
-      }, 2000);
-      
-    } catch (error: any) {
-      alert('Error saving attendance: ' + error.message);
-      saveBtn.textContent = '💾 Save All Attendance';
-      saveBtn.disabled = false;
+    }
+
+    // Save all attendance
+    const saveAllBtn = document.getElementById('save-all-btn');
+    if (saveAllBtn) {
+      saveAllBtn.addEventListener('click', async () => {
+        const selectedDate = datePicker?.value;
+        if (!selectedDate) return;
+        
+        const saveBtn = document.getElementById('save-all-btn') as HTMLButtonElement;
+        
+        try {
+          saveBtn.textContent = 'Saving...';
+          saveBtn.disabled = true;
+          
+          const promises = Object.entries(attendanceData).map(([uid, status]) => {
+            const recordId = `${uid}_${selectedDate}`;
+            return setDoc(doc(db, 'attendance', recordId), {
+              studentId: uid,
+              date: selectedDate,
+              status: status,
+              markedAt: new Date().toISOString()
+            });
+          });
+          
+          await Promise.all(promises);
+          
+          saveBtn.textContent = '✓ All Attendance Saved!';
+          saveBtn.style.background = '#4CAF50';
+          saveBtn.style.color = 'white';
+          
+          setTimeout(() => {
+            saveBtn.textContent = '💾 Save All Attendance';
+            saveBtn.style.background = '';
+            saveBtn.style.color = '';
+            saveBtn.disabled = false;
+          }, 2000);
+          
+        } catch (error: any) {
+          alert('Error saving attendance: ' + error.message);
+          saveBtn.textContent = '💾 Save All Attendance';
+          saveBtn.disabled = false;
+        }
+      });
     }
   });
 </script>
